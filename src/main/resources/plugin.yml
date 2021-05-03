@@ -1,0 +1,14 @@
+name: RmAnnouncer
+version: ${project.version}
+main: net.rmplugins.rmannouncer.RmAnnouncer
+authors: [ Levi_Marvin ]
+description: A modern automatic message plugin of Minecraft.
+website: https://rmannouncer.rmplugins.net
+
+softdepend:
+  - PlaceholderAPI
+
+commands:
+  rma:
+    aliases: [ rmannouncer, pxam ]
+    description: ""
