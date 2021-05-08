@@ -14,7 +14,10 @@ import static net.rmplugins.rmannouncer.data.plugin.Extension.*;
  */
 public class StringUtil {
     /**
-     * @
+     * Get key's value from json String.
+     * @param jsonText String - A json String text.
+     * @param key String - The key you want to get value.
+     * @return String - The key's value.
      */
     public static String getKeyValue(String jsonText, String key) {
         // Create Json object.
@@ -23,6 +26,13 @@ public class StringUtil {
         return jsonObject.get(key).getAsString();
     }
 
+    /**
+     * Set key's value to json String.
+     * @param jsonText String - A json String text.
+     * @param key String - The key you want to set value.
+     * @param value String - The value you want to set.
+     * @return String - A json String.
+     */
     public static String setKeyValue(String jsonText, String key, String value) {
         // Create Json object.
         JsonObject jsonObject = new JsonParser().parse(jsonText).getAsJsonObject();

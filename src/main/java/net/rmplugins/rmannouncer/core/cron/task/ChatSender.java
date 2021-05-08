@@ -18,11 +18,11 @@ import static net.rmplugins.rmannouncer.core.util.SenderUtil.sendChat;
  * @since 1.0
  */
 public class ChatSender extends BukkitRunnable {
-    private boolean isStart = false;
+    private boolean isRunning = false;
 
     @Override
     public void run() {
-        this.isStart = true;
+        this.isRunning = true;
         send();
     }
 
@@ -46,11 +46,7 @@ public class ChatSender extends BukkitRunnable {
         }
     }
 
-    public boolean isStart() {
-        return this.isStart;
-    }
-
-    public void setStart(boolean value) {
-        this.isStart = value;
+    public boolean isRunning() {
+        return this.isRunning;
     }
 }
