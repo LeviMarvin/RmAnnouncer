@@ -7,8 +7,9 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Collection;
 
+import static net.rmplugins.rmannouncer.core.util.StringUtil.*;
 import static net.rmplugins.rmannouncer.data.plugin.Main.PLUGIN;
-import static net.rmplugins.rmannouncer.data.plugin.ChatSender.*;
+import static net.rmplugins.rmannouncer.data.plugin.Main.chatTexts;
 import static net.rmplugins.rmannouncer.core.util.SenderUtil.sendChat;
 
 /**
@@ -17,29 +18,39 @@ import static net.rmplugins.rmannouncer.core.util.SenderUtil.sendChat;
  * @since 1.0
  */
 public class ChatSender extends BukkitRunnable {
-    int textIndex = 0;
+    private boolean isStart = false;
 
     @Override
     public void run() {
-
+        this.isStart = true;
+        send();
     }
 
     private void send() {
+        int textIndex = 0;
         // Get online players.
         Collection<? extends Player> players = PLUGIN.getServer().getOnlinePlayers();
         // Get texts' max size.
-        int textMax = texts.size();
-        // Get original text.
-        String text = texts.get(textIndex);
-        // Create Json object.
-        JsonObject jsonObject = new JsonParser().parse(text).getAsJsonObject();
-        // Get original text.
-        String originText = jsonObject.get("text").getAsString();
-
-        jsonObject.addProperty("text", "");
+        int textMax = chatTexts.size();
+        // Get original json text.
+        String jsonText = chatTexts.get(textIndex);
+        // Get text's value.
+        String text = getKeyValue(jsonText, "text");
 
         for (Player player : players) {
-            sendChat(player, text);
+            // Translate Text's value.
+            String translatedText = translateString(player, text);
+            // Set translated text to jsonObject.
+            String finalJsonText = setKeyValue(jsonText, "text", translatedText);
+            sendChat(player, finalJsonText);
         }
+    }
+
+    public boolean isStart() {
+        return this.isStart;
+    }
+
+    public void setStart(boolean value) {
+        this.isStart = value;
     }
 }

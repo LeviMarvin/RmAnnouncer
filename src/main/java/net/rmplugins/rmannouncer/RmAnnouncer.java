@@ -13,7 +13,7 @@ import static net.rmplugins.rmannouncer.data.plugin.Extension.*;
  */
 public final class RmAnnouncer extends JavaPlugin {
     private static JavaPlugin PLUGIN;
-    public static JavaPlugin get() {
+    public static JavaPlugin getSelf() {
         return PLUGIN;
     }
 
@@ -36,8 +36,7 @@ public final class RmAnnouncer extends JavaPlugin {
             PAPI_support = true;
             sendMsg("Enable the support of PlaceholderAPI successfully!");
         } else {
-            sendAlert("Could not find PlaceholderAPI! Will not enable the support of PlaceholderAPI.");
+            sendAlert("Could not find or load PlaceholderAPI! Will not enable the support of PlaceholderAPI.");
         }
-
     }
 }

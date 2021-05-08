@@ -1,6 +1,8 @@
 package net.rmplugins.rmannouncer.core.cron;
 
+import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitScheduler;
 
 import static net.rmplugins.rmannouncer.data.plugin.Main.PLUGIN;
 import static net.rmplugins.rmannouncer.util.MessageUtil.sendError;
@@ -13,19 +15,13 @@ import static net.rmplugins.rmannouncer.util.MessageUtil.sendError;
  * @since 1.0
  */
 public class TaskManager {
-    @Deprecated
-    public void start(Class<BukkitRunnable> taskClass, int interval) {
-        try {
-            PLUGIN.getServer().getScheduler().scheduleSyncRepeatingTask(PLUGIN, taskClass.newInstance(), 1, interval);
-        } catch (InstantiationException | IllegalAccessException e) {
-            sendError(e);
-        }
+    BukkitScheduler scheduler = PLUGIN.getServer().getScheduler();
+
+    public void runTask(JavaPlugin plugin, BukkitRunnable task, long period) {
+        task.runTaskTimer(plugin, 1L, period);
     }
 
-    @Deprecated
-    public void stop(type type) {}
-
-    public enum type{
-        CHAT, TITLE, ACTIONBAR, BOSSBAR
+    public void stopTask(BukkitRunnable task) {
+        task.cancel();
     }
 }
