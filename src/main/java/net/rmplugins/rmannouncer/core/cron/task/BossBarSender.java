@@ -1,30 +1,31 @@
 package net.rmplugins.rmannouncer.core.cron.task;
 
+import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Collection;
 
+import static net.rmplugins.rmannouncer.core.util.SenderUtil.sendBossBar;
 import static net.rmplugins.rmannouncer.core.util.StringUtil.*;
-import static net.rmplugins.rmannouncer.data.plugin.Main.PLUGIN;
-import static net.rmplugins.rmannouncer.data.plugin.Main.chatTexts;
-import static net.rmplugins.rmannouncer.core.util.SenderUtil.sendChat;
+import static net.rmplugins.rmannouncer.data.plugin.Main.*;
 
 /**
  * @author Levi Marvin
- * @version 1.0
- * @since 1.0
+ * @version #CHANGE THIS#
+ * @since #CHANGE THIS#
  */
-public class ChatSender extends BukkitRunnable {
-    private static ChatSender sender;
-    public static ChatSender self() {
+public class BossBarSender extends BukkitRunnable {
+    private static ActionBarSender sender;
+    public static ActionBarSender self() {
         if (sender == null) {
-            sender = new ChatSender();
+            sender = new ActionBarSender();
         }
         return sender;
     }
     private boolean isRunning = false;
     int textIndex = 0;
+    BossBar bossBar;
 
     @Override
     public void run() {
@@ -36,18 +37,15 @@ public class ChatSender extends BukkitRunnable {
         // Get online players.
         Collection<? extends Player> players = PLUGIN.getServer().getOnlinePlayers();
         // Get texts' max size.
-        int textsMax = chatTexts.size();
-        // Get original json text.
-        String jsonText = chatTexts.get(textIndex);
-        // Get text's value.
-        String text = getKeyValue(jsonText, "text");
+        int textsMax = bossbarTexts.size();
+        // Get original text.
+        String text = bossbarTexts.get(textIndex);
 
         for (Player player : players) {
             // Translate Text's value.
             String translatedText = translateString(player, text);
-            // Set translated text to jsonObject.
-            String finalJsonText = setKeyValue(jsonText, "text", translatedText);
-            sendChat(player, finalJsonText);
+            // Send translated text to player.
+            sendBossBar(bossBar ,barStyle, barColor, player, translatedText);
         }
         if (textIndex == textsMax){
             textIndex = 0;

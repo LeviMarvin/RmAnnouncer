@@ -5,26 +5,26 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Collection;
 
-import static net.rmplugins.rmannouncer.core.util.SenderUtil.sendTitle;
+import static net.rmplugins.rmannouncer.core.util.SenderUtil.sendActionBar;
 import static net.rmplugins.rmannouncer.core.util.StringUtil.*;
-import static net.rmplugins.rmannouncer.data.plugin.Main.*;
+import static net.rmplugins.rmannouncer.data.plugin.Main.PLUGIN;
+import static net.rmplugins.rmannouncer.data.plugin.Main.actionbarTexts;
 
 /**
  * @author Levi Marvin
  * @version 1.0
  * @since 1.0
  */
-public class TitleSender extends BukkitRunnable {
-    private static TitleSender sender;
-    public static TitleSender self() {
+public class ActionBarSender extends BukkitRunnable {
+    private static ActionBarSender sender;
+    public static ActionBarSender self() {
         if (sender == null) {
-            sender = new TitleSender();
+            sender = new ActionBarSender();
         }
         return sender;
     }
     private boolean isRunning = false;
     int textIndex = 0;
-    int subTextIndex = 0;
 
     @Override
     public void run() {
@@ -36,32 +36,23 @@ public class TitleSender extends BukkitRunnable {
         // Get online players.
         Collection<? extends Player> players = PLUGIN.getServer().getOnlinePlayers();
         // Get texts' max size.
-        int textsMax = titleTexts.size();
-        int subTextsMax = subTitleTexts.size();
+        int textsMax = actionbarTexts.size();
         // Get original json text.
-        String jsonText = titleTexts.get(textIndex);
-        String subJsonText = subTitleTexts.get(subTextIndex);
+        String jsonText = actionbarTexts.get(textIndex);
         // Get text's value.
         String text = getKeyValue(jsonText, "text");
-        String subText = getKeyValue(subJsonText, "text");
 
         for (Player player : players) {
             // Translate Text's value.
             String translatedText = translateString(player, text);
-            String subTranslatedText = translateString(player, subText);
             // Set translated text to jsonObject.
             String finalJsonText = setKeyValue(jsonText, "text", translatedText);
-            String subFinalJsonText = setKeyValue(subJsonText, "text", subTranslatedText);
-            sendTitle(player, finalJsonText, subFinalJsonText, titleFadeIn, titleStay, titleFadeOut);
+            sendActionBar(player, finalJsonText);
         }
         if (textIndex == textsMax){
             textIndex = 0;
         }
-        if (subTextIndex == textsMax){
-            subTextIndex = 0;
-        }
         textIndex++;
-        subTextIndex++;
     }
 
     public boolean isRunning() {

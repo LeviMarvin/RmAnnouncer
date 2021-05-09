@@ -1,6 +1,7 @@
 package net.rmplugins.rmannouncer;
 
 import net.rmplugins.rmannouncer.core.cron.TaskManager;
+import net.rmplugins.rmannouncer.core.cron.task.ActionBarSender;
 import net.rmplugins.rmannouncer.core.cron.task.ChatSender;
 import net.rmplugins.rmannouncer.core.cron.task.TitleSender;
 import org.bukkit.Bukkit;
@@ -49,11 +50,24 @@ public final class RmAnnouncer extends JavaPlugin {
             TaskManager.getManager().runTask(this, TitleSender.self(), chatInterval);
         }
         if (isEnableActionBar) {
-            //TaskManager.getManager().runTask(this, ActionBarSender.self(), chatInterval);
+            TaskManager.getManager().runTask(this, ActionBarSender.self(), chatInterval);
         }
         if (isEnableBossBar) {
             //TaskManager.getManager().runTask(this, BossBarSender.self(), chatInterval);
         }
+    }
+
+    private void stopSender() {
+        if (ChatSender.self().isRunning()) {
+            ChatSender.self().cancel();
+        }
+        if (TitleSender.self().isRunning()) {
+            TitleSender.self().cancel();
+        }
+        if (ActionBarSender.self().isRunning()) {
+            ActionBarSender.self().cancel();
+        }
+        //if (BossBarSender.self().isRunning()) {}
     }
 
     private void initExtension() {

@@ -1,6 +1,8 @@
 package net.rmplugins.rmannouncer.data.plugin;
 
 import net.rmplugins.rmannouncer.RmAnnouncer;
+import org.bukkit.boss.BarColor;
+import org.bukkit.boss.BarStyle;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.List;
@@ -38,6 +40,10 @@ public class Main {
 
     public static List<String> chatTexts;
     public static List<String> titleTexts;
+    public static List<String> subTitleTexts;
     public static List<String> actionbarTexts;
     public static List<String> bossbarTexts;
+
+    public static BarColor barColor;
+    public static BarStyle barStyle;
 }
