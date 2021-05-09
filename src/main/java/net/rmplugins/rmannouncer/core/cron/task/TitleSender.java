@@ -5,21 +5,24 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Collection;
 
+import static net.rmplugins.rmannouncer.core.util.SenderUtil.sendTitle;
 import static net.rmplugins.rmannouncer.core.util.StringUtil.*;
 import static net.rmplugins.rmannouncer.data.plugin.Main.PLUGIN;
-import static net.rmplugins.rmannouncer.data.plugin.Main.chatTexts;
-import static net.rmplugins.rmannouncer.core.util.SenderUtil.sendChat;
+import static net.rmplugins.rmannouncer.data.plugin.Main.titleFadeIn;
+import static net.rmplugins.rmannouncer.data.plugin.Main.titleStay;
+import static net.rmplugins.rmannouncer.data.plugin.Main.titleFadeOut;
+import static net.rmplugins.rmannouncer.data.plugin.Main.titleTexts;
 
 /**
  * @author Levi Marvin
  * @version 1.0
  * @since 1.0
  */
-public class ChatSender extends BukkitRunnable {
-    private static ChatSender sender;
-    public static ChatSender self() {
+public class TitleSender extends BukkitRunnable {
+    private static TitleSender sender;
+    public static TitleSender self() {
         if (sender == null) {
-            sender = new ChatSender();
+            sender = new TitleSender();
         }
         return sender;
     }
@@ -36,9 +39,9 @@ public class ChatSender extends BukkitRunnable {
         // Get online players.
         Collection<? extends Player> players = PLUGIN.getServer().getOnlinePlayers();
         // Get texts' max size.
-        int textMax = chatTexts.size();
+        int textMax = titleTexts.size();
         // Get original json text.
-        String jsonText = chatTexts.get(textIndex);
+        String jsonText = titleTexts.get(textIndex);
         // Get text's value.
         String text = getKeyValue(jsonText, "text");
 
@@ -47,7 +50,7 @@ public class ChatSender extends BukkitRunnable {
             String translatedText = translateString(player, text);
             // Set translated text to jsonObject.
             String finalJsonText = setKeyValue(jsonText, "text", translatedText);
-            sendChat(player, finalJsonText);
+            sendTitle(player, finalJsonText, null, titleFadeIn, titleStay, titleFadeOut);
         }
     }
 

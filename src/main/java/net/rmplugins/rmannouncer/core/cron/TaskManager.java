@@ -2,9 +2,7 @@ package net.rmplugins.rmannouncer.core.cron;
 
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitScheduler;
 
-import static net.rmplugins.rmannouncer.data.plugin.Main.PLUGIN;
 import static net.rmplugins.rmannouncer.util.MessageUtil.sendError;
 
 /**
@@ -15,13 +13,27 @@ import static net.rmplugins.rmannouncer.util.MessageUtil.sendError;
  * @since 1.0
  */
 public class TaskManager {
-    BukkitScheduler scheduler = PLUGIN.getServer().getScheduler();
+    private static TaskManager manager;
+    public static TaskManager getManager() {
+        if (manager == null) {
+            manager = new TaskManager();
+        }
+        return manager;
+    }
 
     public void runTask(JavaPlugin plugin, BukkitRunnable task, long period) {
-        task.runTaskTimer(plugin, 1L, period);
+        try {
+            task.runTaskTimer(plugin, 1L, period);
+        }catch (java.lang.IllegalArgumentException | java.lang.IllegalStateException e) {
+            sendError(e);
+        }
     }
 
     public void stopTask(BukkitRunnable task) {
-        task.cancel();
+        try {
+            task.cancel();
+        }catch (java.lang.IllegalStateException e) {
+            sendError(e);
+        }
     }
 }

@@ -24,13 +24,13 @@ public class MessageUtil implements Util{
         PLUGIN.getServer().getConsoleSender().sendMessage("§c" + text);
     }
 
-    public static void sendError(Exception e) {
+    public static void sendError(Exception exception) {
         String[] exceptionInfo = new String[5];
         exceptionInfo[0] = "  Oops! There are exception was thrown!";
-        exceptionInfo[1] = "    Message: \n      " + e.getMessage();
-        exceptionInfo[2] = "    Location(Class): \n      " + e.getClass().getName();
-        exceptionInfo[3] = "    Cause: \n      " + e.getCause().toString();
-        exceptionInfo[4] = "    StackTrace: \n      " + Arrays.toString(e.getStackTrace());
+        exceptionInfo[1] = "    Message: \n      " + exception.getMessage();
+        exceptionInfo[2] = "    Location(Class): \n      " + exception.getClass().getName();
+        exceptionInfo[3] = "    Cause: \n      " + exception.getCause().toString();
+        exceptionInfo[4] = "    StackTrace: \n      " + Arrays.toString(exception.getStackTrace());
         for (String text : exceptionInfo) {
             PLUGIN.getServer().getConsoleSender().sendMessage("§c" + text);
         }
