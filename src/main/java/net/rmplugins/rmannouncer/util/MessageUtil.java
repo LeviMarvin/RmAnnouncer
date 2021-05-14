@@ -26,11 +26,24 @@ public class MessageUtil implements Util{
 
     public static void sendError(Exception exception) {
         String[] exceptionInfo = new String[5];
-        exceptionInfo[0] = "  Oops! There are exception was thrown!";
+        exceptionInfo[0] = "  Oops! Has an exception was thrown!\n";
         exceptionInfo[1] = "    Message: \n      " + exception.getMessage();
         exceptionInfo[2] = "    Location(Class): \n      " + exception.getClass().getName();
         exceptionInfo[3] = "    Cause: \n      " + exception.getCause().toString();
         exceptionInfo[4] = "    StackTrace: \n      " + Arrays.toString(exception.getStackTrace());
+        for (String text : exceptionInfo) {
+            PLUGIN.getServer().getConsoleSender().sendMessage("§c" + text);
+        }
+    }
+
+    public static void sendReflectError(Exception exception, String reflect) {
+        String[] exceptionInfo = new String[6];
+        exceptionInfo[0] = "  Oops! Has a reflect exception was thrown!\n";
+        exceptionInfo[1] = "  Target Class: \n" + reflect + "\n";
+        exceptionInfo[2] = "    Message: \n      " + exception.getMessage();
+        exceptionInfo[3] = "    Location(Class): \n      " + exception.getClass().getName();
+        exceptionInfo[4] = "    Cause: \n      " + exception.getCause().toString();
+        exceptionInfo[5] = "    StackTrace: \n      " + Arrays.toString(exception.getStackTrace());
         for (String text : exceptionInfo) {
             PLUGIN.getServer().getConsoleSender().sendMessage("§c" + text);
         }

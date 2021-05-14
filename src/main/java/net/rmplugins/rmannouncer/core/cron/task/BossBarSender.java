@@ -7,13 +7,17 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.Collection;
 
 import static net.rmplugins.rmannouncer.core.util.SenderUtil.sendBossBar;
+import static net.rmplugins.rmannouncer.core.util.SenderUtil.sendBossBarV2;
 import static net.rmplugins.rmannouncer.core.util.StringUtil.*;
 import static net.rmplugins.rmannouncer.data.plugin.Main.*;
+import static net.rmplugins.rmannouncer.data.server.SERVER.majorVersion;
+import static net.rmplugins.rmannouncer.data.server.SERVER.minorVersion;
+import static net.rmplugins.rmannouncer.util.MessageUtil.sendError;
 
 /**
  * @author Levi Marvin
- * @version #CHANGE THIS#
- * @since #CHANGE THIS#
+ * @version 1.0
+ * @since 1.0
  */
 public class BossBarSender extends BukkitRunnable {
     private static ActionBarSender sender;
@@ -45,7 +49,13 @@ public class BossBarSender extends BukkitRunnable {
             // Translate Text's value.
             String translatedText = translateString(player, text);
             // Send translated text to player.
-            sendBossBar(bossBar ,barStyle, barColor, player, translatedText);
+            if (majorVersion >= 1 && minorVersion >= 16) {
+                sendBossBarV2(UUID, bossBar ,barStyle, barColor, player, translatedText);
+            }else if (majorVersion <= 1 && minorVersion < 16){
+                sendBossBar(bossBar ,barStyle, barColor, player, translatedText);
+            }else {
+                sendError("Server version error at BossBarSender!");
+            }
         }
         if (textIndex == textsMax){
             textIndex = 0;

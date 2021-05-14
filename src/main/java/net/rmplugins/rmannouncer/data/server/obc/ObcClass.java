@@ -2,6 +2,8 @@ package net.rmplugins.rmannouncer.data.server.obc;
 
 import net.rmplugins.rmannouncer.util.ReflectUtil;
 
+import static net.rmplugins.rmannouncer.util.MessageUtil.sendReflectError;
+
 /**
  * @author Levi Marvin
  * @version 1.0
@@ -17,10 +19,18 @@ public class ObcClass {
     public Class<?> craftPlayer;
 
     public void init() {
+        load();
+    }
+
+    public void reload() {
+        load();
+    }
+
+    private void load() {
         try {
             craftPlayer = ReflectUtil.getObcClass("CraftPlayer");
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            sendReflectError(e, "CraftPlayer");
         }
     }
 }

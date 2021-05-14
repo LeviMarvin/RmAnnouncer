@@ -6,7 +6,4 @@ package net.rmplugins.rmannouncer.data.io;
  * @since 1.0
  */
 public class File {
-    public File createFile(String filename) {
-        return createFile(filename);
-    }
 }

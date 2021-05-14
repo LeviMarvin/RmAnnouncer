@@ -2,10 +2,15 @@ package net.rmplugins.rmannouncer;
 
 import net.rmplugins.rmannouncer.core.cron.TaskManager;
 import net.rmplugins.rmannouncer.core.cron.task.ActionBarSender;
+import net.rmplugins.rmannouncer.core.cron.task.BossBarSender;
 import net.rmplugins.rmannouncer.core.cron.task.ChatSender;
 import net.rmplugins.rmannouncer.core.cron.task.TitleSender;
+import net.rmplugins.rmannouncer.data.Data;
 import org.bukkit.Bukkit;
+import org.bukkit.plugin.PluginLogger;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.logging.Logger;
 
 import static net.rmplugins.rmannouncer.data.plugin.Main.*;
 import static net.rmplugins.rmannouncer.util.MessageUtil.sendAlert;
@@ -17,43 +22,54 @@ import static net.rmplugins.rmannouncer.data.plugin.Extension.*;
  * @version 1.0
  */
 public final class RmAnnouncer extends JavaPlugin {
-    private static JavaPlugin PLUGIN;
-    public static JavaPlugin self() {
+    private static RmAnnouncer PLUGIN;
+    public static RmAnnouncer self() {
         return PLUGIN;
     }
+    private PluginLogger logger;
 
     @Override
     public void onEnable() {
         PLUGIN = this;
         // Init config.
-        // TODO
+        // TODO: init config
+        this.saveDefaultConfig();
+        // Init server data.
+        Data.self().init();
         // Init extensions.
-        initExtension();
+        this.initExtension();
         // Run senders.
-        runSender();
+        this.runSender();
     }
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+        sendMsg("Thanks for using. See you next time.");
     }
 
     public void onReload() {
+        reloadConfig();
+        Data.self().reload();
         runSender();
     }
 
+    public PluginLogger getPluginLogger() {
+        return this.logger;
+    }
+
     private void runSender() {
+        stopSender();
         if (isEnableChat) {
             TaskManager.getManager().runTask(this, ChatSender.self(), chatInterval);
         }
         if (isEnableTitle) {
-            TaskManager.getManager().runTask(this, TitleSender.self(), chatInterval);
+            TaskManager.getManager().runTask(this, TitleSender.self(), titleInterval);
         }
         if (isEnableActionBar) {
-            TaskManager.getManager().runTask(this, ActionBarSender.self(), chatInterval);
+            TaskManager.getManager().runTask(this, ActionBarSender.self(), actionbarInterval);
         }
         if (isEnableBossBar) {
-            //TaskManager.getManager().runTask(this, BossBarSender.self(), chatInterval);
+            TaskManager.getManager().runTask(this, BossBarSender.self(), bossbarInterval);
         }
     }
 
@@ -67,7 +83,9 @@ public final class RmAnnouncer extends JavaPlugin {
         if (ActionBarSender.self().isRunning()) {
             ActionBarSender.self().cancel();
         }
-        //if (BossBarSender.self().isRunning()) {}
+        if (BossBarSender.self().isRunning()) {
+            BossBarSender.self().cancel();
+        }
     }
 
     private void initExtension() {

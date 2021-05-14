@@ -3,9 +3,12 @@ package net.rmplugins.rmannouncer.data.plugin;
 import net.rmplugins.rmannouncer.RmAnnouncer;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
+import org.bukkit.plugin.PluginLogger;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.List;
+import java.util.UUID;
+import java.util.logging.Logger;
 
 /**
  * @author Levi Marvin
@@ -18,11 +21,13 @@ public class Main {
      *
      * Time unit: Tick (1 second = 20 tick)
      */
-
     public static final JavaPlugin PLUGIN = RmAnnouncer.self();
+    public static final String PREFIX = "§6§l[§e§nRAC§6§l]§f§r ";
+    public static final UUID UUID = java.util.UUID.fromString("7af33e4e-b4c7-11eb-85ab-0a80ff2603de");
+
+    public static String msgPrefix;
     public static String configPath;
     public static String logPath;
-    public static String msgPrefix;
 
     public static boolean isEnableChat = true;
     public static boolean isEnableTitle = true;

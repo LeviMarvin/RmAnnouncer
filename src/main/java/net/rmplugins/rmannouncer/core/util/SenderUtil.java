@@ -2,10 +2,14 @@ package net.rmplugins.rmannouncer.core.util;
 
 import net.rmplugins.rmannouncer.data.server.nms.NmsClass;
 import org.bukkit.boss.BarColor;
+import org.bukkit.boss.BarFlag;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
 
+import java.util.UUID;
+
+import static net.rmplugins.rmannouncer.data.plugin.Main.PLUGIN;
 import static net.rmplugins.rmannouncer.util.MessageUtil.sendError;
 
 /**
@@ -98,6 +102,25 @@ public class SenderUtil {
     }
 
     public static void sendBossBar(BossBar bossBar, BarStyle style, BarColor color, Player player, String text) {
+        if (bossBar == null) {
+            bossBar = PLUGIN.getServer().createBossBar(text, color, style, (BarFlag) null);
+        }
+        try {
+            bossBar.setStyle(style);
+            bossBar.setColor(color);
+            bossBar.setTitle(text);
+            bossBar.setVisible(true);
+            bossBar.addPlayer(player);
+        } catch (Exception e) {
+            sendError(e);
+        }
+    }
+
+    public static void sendBossBarV2(UUID uuid, BossBar bossBar, BarStyle style, BarColor color, Player player, String text) {
+
+        if (bossBar == null) {
+            bossBar = PLUGIN.getServer().createBossBar(text, color, style, (BarFlag) null);
+        }
         try {
             bossBar.setStyle(style);
             bossBar.setColor(color);

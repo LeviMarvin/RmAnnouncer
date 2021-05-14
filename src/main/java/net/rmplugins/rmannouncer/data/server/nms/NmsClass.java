@@ -2,6 +2,8 @@ package net.rmplugins.rmannouncer.data.server.nms;
 
 import net.rmplugins.rmannouncer.util.ReflectUtil;
 
+import static net.rmplugins.rmannouncer.util.MessageUtil.sendReflectError;
+
 /**
  * @author Levi Marvin
  * @version 1.0
@@ -32,6 +34,14 @@ public class NmsClass {
     public Class<?> chatMessageType;
 
     public void init() {
+        load();
+    }
+
+    public void reload() {
+        load();
+    }
+
+    private void load() {
         try {
             iChatBaseComponent = ReflectUtil.getNmsClass("IChatBaseComponent");
             packet = ReflectUtil.getNmsClass("Packet");
@@ -40,7 +50,7 @@ public class NmsClass {
             packetPlayOutChat = ReflectUtil.getNmsClass("PacketPlayOutChat");
             chatMessageType = ReflectUtil.getNmsClass("ChatMessageType");
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            sendReflectError(e, "One of NMS Classes");
         }
     }
 }
