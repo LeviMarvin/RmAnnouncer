@@ -5,6 +5,8 @@ import net.rmplugins.rmannouncer.util.ReflectUtil;
 import static net.rmplugins.rmannouncer.util.MessageUtil.sendReflectError;
 
 /**
+ * Location: net.minecraft.server
+ *
  * @author Levi Marvin
  * @version 1.0
  * @since 1.0
@@ -50,7 +52,7 @@ public class NmsClass {
             packetPlayOutChat = ReflectUtil.getNmsClass("PacketPlayOutChat");
             chatMessageType = ReflectUtil.getNmsClass("ChatMessageType");
         } catch (ClassNotFoundException e) {
-            sendReflectError(e, "One of NMS Classes");
+            sendReflectError(e, e.getClass().getCanonicalName());
         }
     }
 }

@@ -9,7 +9,7 @@ import static net.rmplugins.rmannouncer.data.plugin.Main.PLUGIN;
  * @version 1.0
  * @since 1.0
  */
-public class MessageUtil implements Util{
+public class MessageUtil {
     /**
      * Send a message to server console as an info.
      * @param text String - The message you want to send.

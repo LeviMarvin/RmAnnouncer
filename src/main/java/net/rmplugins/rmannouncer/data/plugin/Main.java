@@ -26,8 +26,9 @@ public class Main {
     public static final UUID UUID = java.util.UUID.fromString("7af33e4e-b4c7-11eb-85ab-0a80ff2603de");
 
     public static String msgPrefix;
-    public static String configPath;
-    public static String logPath;
+    public static String i18n = "en_US";
+    public static String dataPath = PLUGIN.getDataFolder().getPath();
+    public static String logPath = PLUGIN.getDataFolder().getPath();
 
     public static boolean isEnableChat = true;
     public static boolean isEnableTitle = true;

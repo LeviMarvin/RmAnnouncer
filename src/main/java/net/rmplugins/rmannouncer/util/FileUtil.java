@@ -5,5 +5,5 @@ package net.rmplugins.rmannouncer.util;
  * @version 1.0
  * @since 1.0
  */
-public class FileUtil implements Util{
+public class FileUtil{
 }

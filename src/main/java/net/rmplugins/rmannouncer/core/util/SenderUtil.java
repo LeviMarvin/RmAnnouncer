@@ -1,5 +1,6 @@
 package net.rmplugins.rmannouncer.core.util;
 
+import net.rmplugins.rmannouncer.data.plugin.Main;
 import net.rmplugins.rmannouncer.data.server.nms.NmsClass;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarFlag;
@@ -7,9 +8,12 @@ import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.UUID;
 
 import static net.rmplugins.rmannouncer.data.plugin.Main.PLUGIN;
+import static net.rmplugins.rmannouncer.data.server.SERVER.majorVersion;
+import static net.rmplugins.rmannouncer.data.server.SERVER.minorVersion;
 import static net.rmplugins.rmannouncer.util.MessageUtil.sendError;
 
 /**
@@ -25,10 +29,8 @@ public class SenderUtil {
                     .getDeclaredClasses()[0]
                     .getDeclaredMethod("a",String.class)
                     .invoke(null, jsonText);
-            Object packet = NmsClass.getNms().packetPlayOutChat.getConstructor(
-                    NmsClass.getNms().iChatBaseComponent,
-                    NmsClass.getNms().chatMessageType
-            ).newInstance(chatText, NmsClass.getNms().chatMessageType.getEnumConstants()[0]);
+            // Create the text packet.
+            Object packet = createPacket(0, majorVersion, minorVersion, chatText);
             Object entityPlayer = player.getClass().getMethod("getHandle").invoke(player);
             // Get PlayerConnection.
             Object playerConnection = entityPlayer.getClass().getField("playerConnection").get(entityPlayer);
@@ -86,14 +88,12 @@ public class SenderUtil {
                     .getDeclaredClasses()[0]
                     .getMethod("a", String.class)
                     .invoke(null, jsonText);
-            Object packet = NmsClass.getNms().packetPlayOutChat.getConstructor(
-                    NmsClass.getNms().iChatBaseComponent,
-                    NmsClass.getNms().chatMessageType
-            ).newInstance(iChatBaseComponent, NmsClass.getNms().chatMessageType.getEnumConstants()[2]);
+            // Create the text packet.
+            Object packet = createPacket(2, majorVersion, minorVersion, iChatBaseComponent);
             Object entityPlayer = player.getClass().getMethod("getHandle").invoke(player);
             // Get PlayerConnection.
             Object playerConnection = entityPlayer.getClass().getField("playerConnection").get(entityPlayer);
-            // Send chats.
+            // Send ActionBar.
             playerConnection.getClass().getMethod("sendPacket", NmsClass.getNms().packet)
                     .invoke(playerConnection, packet);
         } catch (Exception e) {
@@ -116,19 +116,23 @@ public class SenderUtil {
         }
     }
 
-    public static void sendBossBarV2(UUID uuid, BossBar bossBar, BarStyle style, BarColor color, Player player, String text) {
-
-        if (bossBar == null) {
-            bossBar = PLUGIN.getServer().createBossBar(text, color, style, (BarFlag) null);
+    private static Object createPacket(
+            int msgTypeEnumIndex, int major, int minor,
+            Object iChatBaseComponent
+    ) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        Object packet;
+        if (major >= 1 && minor >= 16) {
+            packet = NmsClass.getNms().packetPlayOutChat.getConstructor(
+                    NmsClass.getNms().iChatBaseComponent,
+                    NmsClass.getNms().chatMessageType,
+                    UUID.class
+            ).newInstance(iChatBaseComponent, NmsClass.getNms().chatMessageType.getEnumConstants()[msgTypeEnumIndex], Main.UUID);
+        }else {
+            packet = NmsClass.getNms().packetPlayOutChat.getConstructor(
+                    NmsClass.getNms().iChatBaseComponent,
+                    NmsClass.getNms().chatMessageType
+            ).newInstance(iChatBaseComponent, NmsClass.getNms().chatMessageType.getEnumConstants()[msgTypeEnumIndex]);
         }
-        try {
-            bossBar.setStyle(style);
-            bossBar.setColor(color);
-            bossBar.setTitle(text);
-            bossBar.setVisible(true);
-            bossBar.addPlayer(player);
-        } catch (Exception e) {
-            sendError(e);
-        }
+        return packet;
     }
 }

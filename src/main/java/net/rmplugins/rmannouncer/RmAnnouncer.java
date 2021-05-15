@@ -10,8 +10,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginLogger;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.logging.Logger;
-
 import static net.rmplugins.rmannouncer.data.plugin.Main.*;
 import static net.rmplugins.rmannouncer.util.MessageUtil.sendAlert;
 import static net.rmplugins.rmannouncer.util.MessageUtil.sendMsg;

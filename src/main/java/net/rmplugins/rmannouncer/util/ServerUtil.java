@@ -7,7 +7,7 @@ import static net.rmplugins.rmannouncer.data.plugin.Main.PLUGIN;
  * @version 1.0
  * @since 1.0
  */
-public class ServerUtil implements Util{
+public class ServerUtil {
     public static String getServerVersion() {
         String[] versions = PLUGIN.getServer().getBukkitVersion().split("\\.");
         String major = versions[0];
