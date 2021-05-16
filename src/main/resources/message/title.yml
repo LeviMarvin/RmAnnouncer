@@ -1,0 +1,8 @@
+text:
+  main:
+    - "§atest message1"
+    - "§ctest message2"
+
+  sub:
+    - "t1"
+    - "t2"

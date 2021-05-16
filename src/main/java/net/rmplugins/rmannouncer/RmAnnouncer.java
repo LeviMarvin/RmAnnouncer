@@ -30,8 +30,13 @@ public final class RmAnnouncer extends JavaPlugin {
     public void onEnable() {
         PLUGIN = this;
         // Init config.
-        // TODO: init config
-        this.saveDefaultConfig();
+        this.saveResource("config.yml", false);
+        this.saveResource("i18n\\default.yml", true);
+        this.saveResource("i18n\\en_US.yml", false);
+        this.saveResource("message\\chat.yml", false);
+        this.saveResource("message\\title.yml", false);
+        this.saveResource("message\\actionbar.yml", false);
+        this.saveResource("message\\bossbar.yml", false);
         // Init server data.
         Data.self().init();
         // Init extensions.

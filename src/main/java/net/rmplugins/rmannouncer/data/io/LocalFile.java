@@ -7,7 +7,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
  * @version 1.0
  * @since 1.0
  */
-public class File {
+public class LocalFile {
     public static YamlConfiguration configFile;
     public static YamlConfiguration i18nFile;
     public static YamlConfiguration chatTextFile;

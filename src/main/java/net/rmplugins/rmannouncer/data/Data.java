@@ -1,9 +1,11 @@
 package net.rmplugins.rmannouncer.data;
 
-import net.rmplugins.rmannouncer.data.io.File;
+import net.rmplugins.rmannouncer.data.io.LocalFile;
 import net.rmplugins.rmannouncer.data.server.nms.NmsClass;
 import net.rmplugins.rmannouncer.data.server.ob.ObcClass;
 import org.bukkit.configuration.file.YamlConfiguration;
+
+import java.io.File;
 
 import static net.rmplugins.rmannouncer.data.plugin.Main.dataPath;
 import static net.rmplugins.rmannouncer.data.plugin.Main.i18n;
@@ -36,12 +38,12 @@ public class Data {
         ObcClass.getObc().init();
         // Initialize files.
         try {
-            File.configFile = YamlConfiguration.loadConfiguration(new java.io.File(dataPath, "config.yml"));
-            File.i18nFile = YamlConfiguration.loadConfiguration(new java.io.File(dataPath, "language\\" + i18n + ".yml"));
-            File.chatTextFile = YamlConfiguration.loadConfiguration(new java.io.File(dataPath, "message\\" + "chat.yml"));
-            File.titleTextFile = YamlConfiguration.loadConfiguration(new java.io.File(dataPath, "message\\" + "title.yml"));
-            File.actionBarTextFile = YamlConfiguration.loadConfiguration(new java.io.File(dataPath, "message\\" + "actionbar.yml"));
-            File.bossBarTextFile = YamlConfiguration.loadConfiguration(new java.io.File(dataPath, "message\\" + "bossbar.yml"));
+            LocalFile.configFile = YamlConfiguration.loadConfiguration(new File(dataPath, "config.yml"));
+            LocalFile.i18nFile = YamlConfiguration.loadConfiguration(new File(dataPath, "language\\" + i18n + ".yml"));
+            LocalFile.chatTextFile = YamlConfiguration.loadConfiguration(new File(dataPath, "message\\" + "chat.yml"));
+            LocalFile.titleTextFile = YamlConfiguration.loadConfiguration(new File(dataPath, "message\\" + "title.yml"));
+            LocalFile.actionBarTextFile = YamlConfiguration.loadConfiguration(new File(dataPath, "message\\" + "actionbar.yml"));
+            LocalFile.bossBarTextFile = YamlConfiguration.loadConfiguration(new File(dataPath, "message\\" + "bossbar.yml"));
         }catch (Exception e) {
             sendError(e);
         }
@@ -51,5 +53,16 @@ public class Data {
         // Reinitialize NMS, OBC and OB Classes.
         NmsClass.getNms().reload();
         ObcClass.getObc().reload();
+        // Reinitialize files.
+        try {
+            LocalFile.configFile = YamlConfiguration.loadConfiguration(new File(dataPath, "config.yml"));
+            LocalFile.i18nFile = YamlConfiguration.loadConfiguration(new File(dataPath, "language\\" + i18n + ".yml"));
+            LocalFile.chatTextFile = YamlConfiguration.loadConfiguration(new File(dataPath, "message\\" + "chat.yml"));
+            LocalFile.titleTextFile = YamlConfiguration.loadConfiguration(new File(dataPath, "message\\" + "title.yml"));
+            LocalFile.actionBarTextFile = YamlConfiguration.loadConfiguration(new File(dataPath, "message\\" + "actionbar.yml"));
+            LocalFile.bossBarTextFile = YamlConfiguration.loadConfiguration(new File(dataPath, "message\\" + "bossbar.yml"));
+        }catch (Exception e) {
+            sendError(e);
+        }
     }
 }

@@ -1,0 +1,8 @@
+config: 0 # V1
+
+update:
+  check: true
+  interval: 1 # Unit: Minute
+
+lang: "en_US"
+
