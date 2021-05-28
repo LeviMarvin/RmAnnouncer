@@ -26,7 +26,7 @@ public class MessageUtil {
 
     public static void sendError(Exception exception) {
         String[] exceptionInfo = new String[5];
-        exceptionInfo[0] = "  Oops! Has an exception was thrown!\n";
+        exceptionInfo[0] = "  §eOops! Has an exception was thrown!\n";
         exceptionInfo[1] = "    Message: \n      " + exception.getMessage();
         exceptionInfo[2] = "    Location(Class): \n      " + exception.getClass().getName();
         exceptionInfo[3] = "    Cause: \n      " + exception.getCause().toString();
@@ -38,7 +38,7 @@ public class MessageUtil {
 
     public static void sendReflectError(Exception exception, String reflect) {
         String[] exceptionInfo = new String[6];
-        exceptionInfo[0] = "  Oops! Has a reflect exception was thrown!\n";
+        exceptionInfo[0] = "  §eOops! Has a reflect exception was thrown!\n";
         exceptionInfo[1] = "  Target Class: \n" + reflect + "\n";
         exceptionInfo[2] = "    Message: \n      " + exception.getMessage();
         exceptionInfo[3] = "    Location(Class): \n      " + exception.getClass().getName();
@@ -84,7 +84,7 @@ public class MessageUtil {
     @Deprecated
     public static String[] getExceptionInfo(Exception e) {
         String[] info = new String[5];
-        info[0] = "  Oops! There are exception was thrown!";
+        info[0] = "  §eOops! There are exception was thrown!";
         info[1] = "    Message: " + e.getMessage();
         info[2] = "    Location(Class): " + e.getClass().getName();
         info[3] = "    Cause: " + e.getCause().toString();

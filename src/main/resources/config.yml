@@ -1,8 +1,31 @@
 config: 0 # V1
 
+debug: true
+
 update:
   check: true
   interval: 1 # Unit: Minute
 
 lang: "en_US"
 
+chat:
+  enable: false
+  interval: 20
+
+title:
+  enable: false
+  interval: 20
+  fadein: 10
+  stay: 20
+  fadeout: 10
+
+actionbar:
+  enable: false
+  interval: 20
+
+bossbar:
+  enable: false
+  interval: 20
+  color: PURPLE # Default: PURPLE; PINK, BLUE, RED, GREEN, YELLOW, PURPLE, WHITE.
+  style: 12 # Default: 1; 1, 6, 10, 12, 20
+  flag: NULL # Default: NULL; NULL, DARKEN_SKY, PLAY_BOSS_MUSIC, CREATE_FOG.

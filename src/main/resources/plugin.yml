@@ -3,12 +3,15 @@ version: ${project.version}
 main: net.rmplugins.rmannouncer.RmAnnouncer
 authors: [ Levi_Marvin ]
 description: A modern automatic message plugin of Minecraft.
-website: https://rmannouncer.rmplugins.net
+website: https://rac.rmplugins.net
 
 softdepend:
   - PlaceholderAPI
 
 commands:
-  rma:
+  rac:
     aliases: [ rmannouncer, pxam ]
-    description: ""
+    description: "The majority command of RmAnnouncer."
+  rac-cli:
+    aliases: [ rmannouncer-cli, pxam-cli]
+    description: "This command provide an interface to other plugin."

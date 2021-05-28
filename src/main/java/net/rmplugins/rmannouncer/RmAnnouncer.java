@@ -1,5 +1,8 @@
 package net.rmplugins.rmannouncer;
 
+import net.rmplugins.rmannouncer.core.command.CommandExecutor;
+import net.rmplugins.rmannouncer.core.command.cmd.Cli;
+import net.rmplugins.rmannouncer.core.command.cmd.Main;
 import net.rmplugins.rmannouncer.core.cron.TaskManager;
 import net.rmplugins.rmannouncer.core.cron.task.ActionBarSender;
 import net.rmplugins.rmannouncer.core.cron.task.BossBarSender;
@@ -24,15 +27,14 @@ public final class RmAnnouncer extends JavaPlugin {
     public static RmAnnouncer self() {
         return PLUGIN;
     }
-    private PluginLogger logger;
 
     @Override
     public void onEnable() {
         PLUGIN = this;
         // Init config.
         this.saveResource("config.yml", false);
-        this.saveResource("i18n\\default.yml", true);
-        this.saveResource("i18n\\en_US.yml", false);
+        this.saveResource("lang\\default.yml", true);
+        this.saveResource("lang\\en_US.yml", false);
         this.saveResource("message\\chat.yml", false);
         this.saveResource("message\\title.yml", false);
         this.saveResource("message\\actionbar.yml", false);
@@ -41,8 +43,23 @@ public final class RmAnnouncer extends JavaPlugin {
         Data.self().init();
         // Init extensions.
         this.initExtension();
+        // Init commands.
+        this.initCommand();
         // Run senders.
         this.runSender();
+    }
+
+    private void initCommand() {
+        if (Bukkit.getPluginCommand("rac") != null) {
+            Bukkit.getPluginCommand("rac").setExecutor(
+                    new CommandExecutor(new Main())
+            );
+        }
+        if (Bukkit.getPluginCommand("rac-cli") != null) {
+            Bukkit.getPluginCommand("rac-cli").setExecutor(
+                    new CommandExecutor(new Cli())
+            );
+        }
     }
 
     @Override
@@ -54,10 +71,6 @@ public final class RmAnnouncer extends JavaPlugin {
         reloadConfig();
         Data.self().reload();
         runSender();
-    }
-
-    public PluginLogger getPluginLogger() {
-        return this.logger;
     }
 
     private void runSender() {

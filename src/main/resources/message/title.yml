@@ -1,7 +1,7 @@
 text:
   main:
-    - "§atest message1"
-    - "§ctest message2"
+    - "{'text':'§aDefault Message 1'}"
+    - "{'text':'§bDefault Message 2'}"
 
   sub:
     - "t1"
