@@ -7,6 +7,7 @@ update:
   interval: 1 # Unit: Minute
 
 lang: "en_US"
+prefix: "[RAC] "
 
 chat:
   enable: false

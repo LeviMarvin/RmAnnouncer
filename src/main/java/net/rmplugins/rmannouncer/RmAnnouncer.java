@@ -10,7 +10,6 @@ import net.rmplugins.rmannouncer.core.cron.task.ChatSender;
 import net.rmplugins.rmannouncer.core.cron.task.TitleSender;
 import net.rmplugins.rmannouncer.data.Data;
 import org.bukkit.Bukkit;
-import org.bukkit.plugin.PluginLogger;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import static net.rmplugins.rmannouncer.data.plugin.Main.*;
