@@ -8,6 +8,7 @@ import static net.rmplugins.rmannouncer.data.plugin.Main.PLUGIN;
  * @since 1.0
  */
 public class ServerUtil {
+
     public static String getServerVersion() {
         String[] versions = PLUGIN.getServer().getBukkitVersion().split("\\.");
         String major = versions[0];
@@ -23,17 +24,5 @@ public class ServerUtil {
             } catch (ClassNotFoundException ignored) {}
         }
         return "v" + major + "_" + minor + "_R"+ revision;
-    }
-
-    public static int getMajorVersion() {
-        String[] versions = PLUGIN.getServer().getBukkitVersion().split("\\.");
-        String major = versions[0];
-        return Integer.getInteger(major);
-    }
-
-    public static int getMinorVersion() {
-        String[] versions = PLUGIN.getServer().getBukkitVersion().split("\\.");
-        String minor = versions[1];
-        return Integer.getInteger(minor);
     }
 }
