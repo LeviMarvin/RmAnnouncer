@@ -4,8 +4,6 @@ import javax.net.ssl.HttpsURLConnection;
 import java.net.URL;
 import java.util.Properties;
 
-import static net.rmplugins.rmannouncer.util.MessageUtil.sendError;
-
 /**
  * @author Levi Marvin
  * @version 1.0
@@ -36,7 +34,7 @@ public class UpdateUtil {
             connection.setInstanceFollowRedirects(false);
             connection.connect();
         }catch (Exception e) {
-            sendError(e);
+            e.printStackTrace();
         }
         return "";
     }

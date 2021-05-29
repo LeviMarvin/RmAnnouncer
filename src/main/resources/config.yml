@@ -27,6 +27,6 @@ actionbar:
 bossbar:
   enable: false
   interval: 20
-  color: PURPLE # Default: PURPLE; PINK, BLUE, RED, GREEN, YELLOW, PURPLE, WHITE.
+  color: "PURPLE" # Default: PURPLE; PINK, BLUE, RED, GREEN, YELLOW, PURPLE, WHITE.
   style: 12 # Default: 1; 1, 6, 10, 12, 20
-  flag: NULL # Default: NULL; NULL, DARKEN_SKY, PLAY_BOSS_MUSIC, CREATE_FOG.
+  flag: "NULL" # Default: NULL; NULL, DARKEN_SKY, PLAY_BOSS_MUSIC, CREATE_FOG.

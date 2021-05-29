@@ -9,8 +9,8 @@ import org.bukkit.command.CommandSender;
  * @version 1.0
  * @since 1.0
  */
-public class Cli implements CommandExecutor {
 
+public class Cli implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         return false;

@@ -3,6 +3,7 @@ package net.rmplugins.rmannouncer.util;
 import java.util.Arrays;
 
 import static net.rmplugins.rmannouncer.data.plugin.Main.PLUGIN;
+import static net.rmplugins.rmannouncer.data.plugin.Main.PREFIX;
 
 /**
  * @author Levi Marvin
@@ -15,38 +16,19 @@ public class MessageUtil {
      * @param text String - The message you want to send.
      */
     public static void sendInfo(String text) {
-        PLUGIN.getServer().getConsoleSender().sendMessage("§f" + text);
+        PLUGIN.getServer().getConsoleSender().sendMessage(PREFIX + "§f" + text);
     }
 
-    public static void sendMsg(String text) { PLUGIN.getServer().getConsoleSender().sendMessage("§a" + text);}
+    public static void sendMsg(String text) {
+        PLUGIN.getServer().getConsoleSender().sendMessage(PREFIX + "§a" + text);
+    }
+
+    public static void sendMsg(String[] text) {
+        PLUGIN.getServer().getConsoleSender().sendMessage(text);
+    }
 
     public static void sendError(String text) {
-        PLUGIN.getServer().getConsoleSender().sendMessage("§c" + text);
-    }
-
-    public static void sendError(Exception exception) {
-        String[] exceptionInfo = new String[5];
-        exceptionInfo[0] = "  §eOops! Has an exception was thrown!\n";
-        exceptionInfo[1] = "    Message: \n      " + exception.getMessage();
-        exceptionInfo[2] = "    Location(Class): \n      " + exception.getClass().getName();
-        exceptionInfo[3] = "    Cause: \n      " + exception.getCause().toString();
-        exceptionInfo[4] = "    StackTrace: \n      " + Arrays.toString(exception.getStackTrace());
-        for (String text : exceptionInfo) {
-            PLUGIN.getServer().getConsoleSender().sendMessage("§c" + text);
-        }
-    }
-
-    public static void sendReflectError(Exception exception, String reflect) {
-        String[] exceptionInfo = new String[6];
-        exceptionInfo[0] = "  §eOops! Has a reflect exception was thrown!\n";
-        exceptionInfo[1] = "  Target Class: \n" + reflect + "\n";
-        exceptionInfo[2] = "    Message: \n      " + exception.getMessage();
-        exceptionInfo[3] = "    Location(Class): \n      " + exception.getClass().getName();
-        exceptionInfo[4] = "    Cause: \n      " + exception.getCause().toString();
-        exceptionInfo[5] = "    StackTrace: \n      " + Arrays.toString(exception.getStackTrace());
-        for (String text : exceptionInfo) {
-            PLUGIN.getServer().getConsoleSender().sendMessage("§c" + text);
-        }
+        PLUGIN.getServer().getConsoleSender().sendMessage(PREFIX + "§c" + text);
     }
 
     /**
@@ -54,7 +36,7 @@ public class MessageUtil {
      * @param text String - The message you want to send.
      */
     public static void sendAlert(String text) {
-        PLUGIN.getServer().getConsoleSender().sendMessage("§e" + text);
+        PLUGIN.getServer().getConsoleSender().sendMessage(PREFIX + "§e" + text);
     }
 
     /**
@@ -87,7 +69,11 @@ public class MessageUtil {
         info[0] = "  §eOops! There are exception was thrown!";
         info[1] = "    Message: " + e.getMessage();
         info[2] = "    Location(Class): " + e.getClass().getName();
-        info[3] = "    Cause: " + e.getCause().toString();
+        if (e.getCause() == null) {
+            info[3] = "    Cause: \n      " + "NULL";
+        }else {
+            info[3] = "    Cause: \n      " + e.getCause().toString();
+        }
         info[4] = "    StackTrace: " + Arrays.toString(e.getStackTrace());
         return info;
     }

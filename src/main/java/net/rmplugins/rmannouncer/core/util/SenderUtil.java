@@ -38,7 +38,7 @@ public class SenderUtil {
             playerConnection.getClass().getMethod("sendPacket", NmsClass.getNms().packet)
                     .invoke(playerConnection, packet);
         } catch (Exception e) {
-            sendError(e);
+            e.printStackTrace();
         }
     }
 
@@ -77,7 +77,7 @@ public class SenderUtil {
             playerConnection.getClass().getMethod("sendPacket", NmsClass.getNms().packet)
                     .invoke(playerConnection, packetPlayOutSubTitle);
         } catch (Exception e) {
-            sendError(e);
+            e.printStackTrace();
         }
     }
 
@@ -97,7 +97,7 @@ public class SenderUtil {
             playerConnection.getClass().getMethod("sendPacket", NmsClass.getNms().packet)
                     .invoke(playerConnection, packet);
         } catch (Exception e) {
-            sendError(e);
+            e.printStackTrace();
         }
     }
 
@@ -112,7 +112,7 @@ public class SenderUtil {
             bossBar.setVisible(true);
             bossBar.addPlayer(player);
         } catch (Exception e) {
-            sendError(e);
+            e.printStackTrace();
         }
     }
 

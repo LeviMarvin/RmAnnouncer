@@ -3,8 +3,6 @@ package net.rmplugins.rmannouncer.core.cron;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import static net.rmplugins.rmannouncer.util.MessageUtil.sendError;
-
 /**
  * Please use this to control and manager senders!
  *
@@ -25,7 +23,7 @@ public class TaskManager {
         try {
             task.runTaskTimer(plugin, 1L, period);
         }catch (java.lang.IllegalArgumentException | java.lang.IllegalStateException e) {
-            sendError(e);
+            e.printStackTrace();
         }
     }
 
@@ -33,7 +31,7 @@ public class TaskManager {
         try {
             task.cancel();
         }catch (java.lang.IllegalStateException e) {
-            sendError(e);
+            e.printStackTrace();
         }
     }
 }
