@@ -15,10 +15,6 @@ public class MessageUtil {
      * Send a message to server console as an info.
      * @param text String - The message you want to send.
      */
-    public static void sendInfo(String text) {
-        PLUGIN.getServer().getConsoleSender().sendMessage(PREFIX + "§f" + text);
-    }
-
     public static void sendMsg(String text) {
         PLUGIN.getServer().getConsoleSender().sendMessage(PREFIX + "§a" + text);
     }

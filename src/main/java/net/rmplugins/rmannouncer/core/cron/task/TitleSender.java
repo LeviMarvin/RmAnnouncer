@@ -57,7 +57,7 @@ public class TitleSender extends BukkitRunnable {
         if (textIndex == textsMax){
             textIndex = 0;
         }
-        if (subTextIndex == textsMax){
+        if (subTextIndex == subTextsMax){
             subTextIndex = 0;
         }
         textIndex++;

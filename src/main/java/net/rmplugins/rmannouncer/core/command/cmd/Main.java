@@ -5,7 +5,6 @@ import net.rmplugins.rmannouncer.core.command.STRING;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 import static net.rmplugins.rmannouncer.data.plugin.Main.*;
 
@@ -23,12 +22,14 @@ public class Main implements CommandExecutor {
         this.sender = sender;
         this.command = command;
         if (args.length == 0) {
-            return RmAnnouncer.self().welcome((Player) sender);
+            sender.sendMessage(welcomeInfo);
+            return true;
         }else if (args.length == 1){
             String subCmd = args[0];
             switch (subCmd) {
                 case "":
-                    return RmAnnouncer.self().welcome((Player) sender);
+                    sender.sendMessage(welcomeInfo);
+                    return true;
                 case "reload":
                     return reload();
                 case "about":

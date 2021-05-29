@@ -37,7 +37,7 @@ public class NmsClass {
         load();
     }
 
-    public void reload() {
+    public void reinit() {
         load();
     }
 

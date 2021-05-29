@@ -34,6 +34,12 @@ public final class RmAnnouncer extends JavaPlugin {
     @Override
     public void onEnable() {
         PLUGIN = this;
+        welcomeInfo[0] = PREFIX + "§6+-==============-[RmAnnouncer]-==============-+";
+        welcomeInfo[1] = PREFIX + "§e            Welcome to RmAnnouncer!            ";
+        welcomeInfo[2] = PREFIX + "§e            Get help by: /rac help             ";
+        welcomeInfo[3] = PREFIX + "§e     Get help by: /rac info or /rac about      ";
+        welcomeInfo[4] = PREFIX + "§a   See details at: https://rac.rmplugins.net   ";
+        welcomeInfo[5] = PREFIX + "§6+-==============-[RmAnnouncer]-==============-+";
         sendMsg("Starting...");
         // Init config.
         sendMsg("  Saving resource...");
@@ -97,16 +103,16 @@ public final class RmAnnouncer extends JavaPlugin {
 
     private void stopSender() {
         if (ChatSender.self().isRunning()) {
-            ChatSender.self().cancel();
+            TaskManager.getManager().stopTask(ChatSender.self());
         }
         if (TitleSender.self().isRunning()) {
-            TitleSender.self().cancel();
+            TaskManager.getManager().stopTask(TitleSender.self());
         }
         if (ActionBarSender.self().isRunning()) {
-            ActionBarSender.self().cancel();
+            TaskManager.getManager().stopTask(ActionBarSender.self());
         }
         if (BossBarSender.self().isRunning()) {
-            BossBarSender.self().cancel();
+            TaskManager.getManager().stopTask(BossBarSender.self());
         }
     }
 
@@ -120,7 +126,6 @@ public final class RmAnnouncer extends JavaPlugin {
     }
 
     private void saveResourceFile(String resourcePath, boolean replace) {
-        File file = null;
         if (resourcePath == null || resourcePath.equals("")) {
             throw new IllegalArgumentException("ResourcePath cannot be null or empty");
         }
@@ -156,14 +161,7 @@ public final class RmAnnouncer extends JavaPlugin {
     }
 
     public boolean welcome(Player p) {
-        String[] text = new String[6];
-        text[0] = PREFIX + "§6+-==============-[RmAnnouncer]-==============-+";
-        text[1] = PREFIX + "§e            Welcome to RmAnnouncer!            ";
-        text[2] = PREFIX + "§e            Get help by: /rac help             ";
-        text[3] = PREFIX + "§e     Get help by: /rac info or /rac about      ";
-        text[4] = PREFIX + "§a   See details at: https://rac.rmplugins.net   ";
-        text[5] = PREFIX + "§6+-==============-[RmAnnouncer]-==============-+";
-        p.sendMessage(text);
+        p.sendMessage(welcomeInfo);
         return true;
     }
 }

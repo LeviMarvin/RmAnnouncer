@@ -16,10 +16,10 @@ import static net.rmplugins.rmannouncer.data.plugin.Main.*;
  * @since 1.0
  */
 public class BossBarSender extends BukkitRunnable {
-    private static ActionBarSender sender;
-    public static ActionBarSender self() {
+    private static BossBarSender sender;
+    public static BossBarSender self() {
         if (sender == null) {
-            sender = new ActionBarSender();
+            sender = new BossBarSender();
         }
         return sender;
     }

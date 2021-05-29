@@ -53,7 +53,7 @@ public class Data {
     public void reinit() {
         // Re-initialize NMS Classes.
         sendMsg("    Reloading NMS...");
-        NmsClass.getNms().init();
+        NmsClass.getNms().reinit();
         LocalFile.configFile = YamlConfiguration.loadConfiguration(new File(dataPath, "config.yml"));
         // Reload files.
         sendMsg("    Reloading file...");

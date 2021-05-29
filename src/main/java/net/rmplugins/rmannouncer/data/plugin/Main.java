@@ -25,11 +25,13 @@ public class Main {
     public static final String VERSION = "INTERNAL VERSION";
     public static final UUID UUID = java.util.UUID.fromString("7af33e4e-b4c7-11eb-85ab-0a80ff2603de");
 
+    public static final String[] welcomeInfo = new String[6];
+
     public static String msgPrefix = "[§a服务器君§f]";
     public static String i18n = "en_US";
     public static String i18nAuthor = "NULL";
     public static String dataPath = PLUGIN.getDataFolder().getPath();
-    public static String logPath = PLUGIN.getDataFolder().getPath();
+    //public static String logPath = PLUGIN.getDataFolder().getPath();
 
     public static boolean isEnableChat = false;
     public static boolean isEnableTitle = false;

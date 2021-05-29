@@ -14,7 +14,6 @@ import java.util.UUID;
 import static net.rmplugins.rmannouncer.data.plugin.Main.PLUGIN;
 import static net.rmplugins.rmannouncer.data.server.SERVER.majorVersion;
 import static net.rmplugins.rmannouncer.data.server.SERVER.minorVersion;
-import static net.rmplugins.rmannouncer.util.MessageUtil.sendError;
 
 /**
  * @author Levi Marvin
