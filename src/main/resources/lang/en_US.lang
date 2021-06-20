@@ -1,0 +1,14 @@
+ro.base.author=Levi_Marvin
+
+cmd.base.error=Command error! Please check your input or get help from administrator.
+cmd.base.notfound=Command not found! Please check your input!
+cmd.base.successfully=Command execute successfully!
+cmd.main.reload.reloading=Reloading plugin...
+cmd.main.reload.successfully=Reload successfully!
+cmd.main.about.author=Author
+cmd.main.about.version=Version
+cmd.main.about.language=Language
+cmd.main.about.uuid=UUID
+cmd.main.about.isdev=Is DEV build
+cmd.main.about.timestamp=Timestamp(Build)
+cmd.main.about.symbol=Version Symbol

@@ -8,6 +8,8 @@ import net.rmplugins.rmannouncer.core.cron.task.BossBarSender;
 import net.rmplugins.rmannouncer.core.cron.task.ChatSender;
 import net.rmplugins.rmannouncer.core.cron.task.TitleSender;
 import net.rmplugins.rmannouncer.data.Data;
+import net.rmplugins.rmannouncer.data.plugin.i18n.I18nLoader;
+import net.rmplugins.rmannouncer.data.plugin.info.ReleaseLoader;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -28,8 +30,17 @@ public final class RmAnnouncer extends JavaPlugin {
         return PLUGIN;
     }
 
+    ReleaseLoader loader;
+
     @Override
-    public void onLoad() {}
+    public void onLoad() {
+        // Init release information.
+        try {
+            loader = new ReleaseLoader();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public void onEnable() {
@@ -44,8 +55,8 @@ public final class RmAnnouncer extends JavaPlugin {
         // Init config.
         sendMsg("  Saving resource...");
         this.saveResourceFile("config.yml", false);
-        this.saveResourceFile("lang\\default.yml", true);
-        this.saveResourceFile("lang\\en_US.yml", false);
+        this.saveResourceFile("lang\\template.lang", true);
+        this.saveResourceFile("lang\\en_US.lang", false);
         this.saveResourceFile("message\\chat.yml", false);
         this.saveResourceFile("message\\title.yml", false);
         this.saveResourceFile("message\\actionbar.yml", false);
@@ -53,6 +64,12 @@ public final class RmAnnouncer extends JavaPlugin {
         // Init server data.
         sendMsg("  Loading data...");
         Data.self().init();
+        // Init i18n support.
+        try {
+            i18nFile = new I18nLoader().getProp();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         // Init extensions.
         sendMsg("  Hooking third-party plugin...");
         this.initExtension();
@@ -163,5 +180,9 @@ public final class RmAnnouncer extends JavaPlugin {
     public boolean welcome(Player p) {
         p.sendMessage(welcomeInfo);
         return true;
+    }
+
+    public ReleaseLoader getRLoader() {
+        return loader;
     }
 }

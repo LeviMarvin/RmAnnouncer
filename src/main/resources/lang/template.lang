@@ -1,0 +1,14 @@
+ro.base.author=Your name
+
+cmd.base.error=
+cmd.base.notfound=
+cmd.base.successfully=
+cmd.main.reload.reloading=
+cmd.main.reload.successfully=
+cmd.main.about.author=
+cmd.main.about.version=
+cmd.main.about.language=
+cmd.main.about.uuid=
+cmd.main.about.isdev=
+cmd.main.about.timestamp=
+cmd.main.about.symbol=

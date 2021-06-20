@@ -13,8 +13,14 @@
 
     <description>A modern automatic message plugin of Minecraft.</description>
     <properties>
-        <java.version>1.8</java.version>
+        <java.version>11</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
+        <!-- Internal Information -->
+        <project.symbol>HelloWorld</project.symbol>
+        <project.isDev>true</project.isDev>
+        <project.buildTimestamp>${maven.build.timestamp}</project.buildTimestamp>
+        <project.token>7af33e4e-b4c7-11eb-85ab-0a80ff2603de</project.token>
     </properties>
     <url>https://rmannouncer.rmplugins.net</url>
 

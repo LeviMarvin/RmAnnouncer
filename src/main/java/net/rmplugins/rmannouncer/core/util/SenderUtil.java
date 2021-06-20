@@ -12,8 +12,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.UUID;
 
 import static net.rmplugins.rmannouncer.data.plugin.Main.PLUGIN;
-import static net.rmplugins.rmannouncer.data.server.SERVER.majorVersion;
-import static net.rmplugins.rmannouncer.data.server.SERVER.minorVersion;
+import static net.rmplugins.rmannouncer.data.server.Server.majorVersion;
+import static net.rmplugins.rmannouncer.data.server.Server.minorVersion;
 
 /**
  * @author Levi Marvin
@@ -21,6 +21,12 @@ import static net.rmplugins.rmannouncer.data.server.SERVER.minorVersion;
  * @since 1.0
  */
 public class SenderUtil {
+    /**
+     * Send chat message to the player who you want.
+     *
+     * @param player +Player+ The player who accept message.
+     * @param jsonText +String+ | +{JSON}+ The message that you want to show.
+     */
     public static void sendChat(Player player, String jsonText){
         try {
             // Create chat text object.
@@ -41,6 +47,16 @@ public class SenderUtil {
         }
     }
 
+    /**
+     * Send title message to the player who you want.
+     *
+     * @param player +Player+ The player who accept message.
+     * @param jsonTitleText +String+ | +{JSON}+ The main-title message that you want to show.
+     * @param jsonSubTitleText +String+ | +{JSON}+ The sub-title message that you want to show.
+     * @param in +int+ The time that message fade in costs.
+     * @param stay +int+ The time that message stay costs.
+     * @param out +int+ The time that message fade out costs.
+     */
     public static void sendTitle(Player player, String jsonTitleText, String jsonSubTitleText, int in, int stay, int out) {
         try {
             // Create main-title text object.
@@ -80,6 +96,12 @@ public class SenderUtil {
         }
     }
 
+    /**
+     * Send actionbar message to the player who you want.
+     *
+     * @param player +Player+ The player who accept message.
+     * @param jsonText +String+ | +{JSON}+ The message that you want to show.
+     */
     public static void sendActionBar(Player player, String jsonText) {
         try {
             // Create ActionBar text object.
@@ -100,6 +122,15 @@ public class SenderUtil {
         }
     }
 
+    /**
+     * Send bossbar message to the player who you want.
+     *
+     * @param bossBar +BossBar+ The instance of accepting message.
+     * @param style +BarStyle+ The style of the instance.
+     * @param color +BarColor+ The color of the instance.
+     * @param text +String+ The message text.
+     * @param player +Player+ The player who can see the message.
+     */
     public static void sendBossBar(BossBar bossBar, BarStyle style, BarColor color, Player player, String text) {
         if (bossBar == null) {
             bossBar = PLUGIN.getServer().createBossBar(text, color, style, (BarFlag) null);
@@ -115,6 +146,15 @@ public class SenderUtil {
         }
     }
 
+    /**
+     * Create an data packet with NMS Class.
+     *
+     * @param msgTypeEnumIndex +int+ The index of enum type in enum class "chatMessageType".
+     * @param major +int+ The server major version. (This will help plugin to generate an right packet)
+     * @param minor +int+ The server minor version. (This will help plugin to generate an right packet)
+     * @param iChatBaseComponent +Object+ The object of iChatBaseComponent.
+     * @return +Object+ The packet instance.
+     */
     private static Object createPacket(
             int msgTypeEnumIndex, int major, int minor,
             Object iChatBaseComponent

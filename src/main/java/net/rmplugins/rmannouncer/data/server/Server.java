@@ -7,7 +7,7 @@ import net.rmplugins.rmannouncer.util.ServerUtil;
  * @version 1.0
  * @since 1.0
  */
-public class SERVER {
+public class Server {
     public static String serverVersion = ServerUtil.getServerVersion();
     public static int majorVersion = ServerUtil.getMajorVersion();
     public static int minorVersion = ServerUtil.getMinorVersion();

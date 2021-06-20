@@ -30,6 +30,7 @@ public class Data {
     /**
      * !IF YOU NEED TO USE THE CLASS OF THIS PACKAGE!
      * !YOU MUST RUN THIS FUNCTION AT FIRST!
+     * (Just one)
      *
      * Init classes witch under this package.
      * If plugin need reload, I suggested you implement this method.

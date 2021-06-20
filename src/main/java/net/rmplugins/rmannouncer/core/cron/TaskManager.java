@@ -4,7 +4,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 /**
- * Please use this to control and manager senders!
+ * Please use this to control and manage all tasks and senders!
  *
  * @author Levi Marvin
  * @version 1.0
@@ -19,6 +19,13 @@ public class TaskManager {
         return manager;
     }
 
+    /**
+     * Start a bukkit task.
+     *
+     * @param plugin +JavaPlugin+ The plugin instance to run the task.
+     * @param task +BukkitRunnable+ The task to be run.
+     * @param period +int+ The task period.
+     */
     public void runTask(JavaPlugin plugin, BukkitRunnable task, long period) {
         try {
             task.runTaskTimer(plugin, 1L, period);
@@ -27,6 +34,11 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Stop a bukkit task.
+     *
+     * @param task +BukkitRunnable+ The task to be stopped.
+     */
     public void stopTask(BukkitRunnable task) {
         try {
             task.cancel();

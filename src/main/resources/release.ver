@@ -1,0 +1,5 @@
+rm.build.dev=${project.isDev}
+rm.build.symbol=${project.symbol}
+rm.build.token=${project.token}
+rm.build.ts=${project.buildTimestamp}
+rm.build.version=${project.buildTimestamp}
