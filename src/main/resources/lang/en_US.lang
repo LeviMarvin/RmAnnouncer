@@ -1,14 +1,26 @@
 ro.base.author=Levi_Marvin
+# This message will be show at plugin loaded.
+ro.base.welcome=Welcome user to my room! mwink
 
 cmd.base.error=Command error! Please check your input or get help from administrator.
 cmd.base.notfound=Command not found! Please check your input!
 cmd.base.successfully=Command execute successfully!
+cmd.main.help.rac=If you want, you can try to execute this. XD
+cmd.main.help.rac.help=Show this page.
+cmd.main.help.rac.status=Show all of this plugin's status now.
+cmd.main.help.rac.reload=Reload this plugin.
+cmd.main.help.rac.about=Show "About" page. >>>Try ME! XD<<<
 cmd.main.reload.reloading=Reloading plugin...
 cmd.main.reload.successfully=Reload successfully!
+cmd.main.status.chat=Chat
+cmd.main.status.title=Title
+cmd.main.status.actionbar=Action Bar
+cmd.main.status.bossbar=Boss Bar
 cmd.main.about.author=Author
 cmd.main.about.version=Version
 cmd.main.about.language=Language
 cmd.main.about.uuid=UUID
 cmd.main.about.isdev=Is DEV build
+cmd.main.about.isdev.trueinfo=#>If you aren't a developer, you should use the release version on your server, because it will more stable than this.
 cmd.main.about.timestamp=Timestamp(Build)
 cmd.main.about.symbol=Version Symbol

@@ -1,14 +1,26 @@
 ro.base.author=Your name
+# This message will be show at plugin loaded.
+ro.base.welcome=
 
 cmd.base.error=
 cmd.base.notfound=
 cmd.base.successfully=
+cmd.main.help.rac=
+cmd.main.help.rac.help=
+cmd.main.help.rac.status=
+cmd.main.help.rac.reload=
+cmd.main.help.rac.about=
 cmd.main.reload.reloading=
 cmd.main.reload.successfully=
+cmd.main.status.chat=
+cmd.main.status.title=
+cmd.main.status.actionbar=
+cmd.main.status.bossbar=
 cmd.main.about.author=
 cmd.main.about.version=
 cmd.main.about.language=
 cmd.main.about.uuid=
 cmd.main.about.isdev=
+cmd.main.about.isdev.trueinfo=
 cmd.main.about.timestamp=
 cmd.main.about.symbol=

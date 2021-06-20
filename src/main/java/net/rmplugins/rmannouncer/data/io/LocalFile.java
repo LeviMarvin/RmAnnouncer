@@ -9,7 +9,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
  */
 public class LocalFile {
     public static YamlConfiguration configFile;
-    public static YamlConfiguration i18nFile;
     public static YamlConfiguration chatTextFile;
     public static YamlConfiguration titleTextFile;
     public static YamlConfiguration actionBarTextFile;

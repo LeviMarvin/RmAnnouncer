@@ -46,9 +46,6 @@ public class Data {
         // Load variables
         sendMsg("    Loading config...");
         loadVariables();
-        // Load language file;
-        loadI18nFile();
-        sendMsg("    Loading language...[" + Main.i18n + "]");
     }
 
     public void reinit() {
@@ -62,9 +59,6 @@ public class Data {
         // Reload variables
         sendMsg("    Reloading config...");
         loadVariables();
-        // Reload language file;
-        sendMsg("    Reloading language...");
-        loadI18nFile();
     }
 
     private void loadFiles() {
@@ -72,11 +66,6 @@ public class Data {
         LocalFile.titleTextFile = YamlConfiguration.loadConfiguration(new File(dataPath, "message\\" + "title.yml"));
         LocalFile.actionBarTextFile = YamlConfiguration.loadConfiguration(new File(dataPath, "message\\" + "actionbar.yml"));
         LocalFile.bossBarTextFile = YamlConfiguration.loadConfiguration(new File(dataPath, "message\\" + "bossbar.yml"));
-    }
-
-    private void loadI18nFile() {
-        LocalFile.i18nFile = YamlConfiguration.loadConfiguration(new File(dataPath, "lang\\" + Main.i18n + ".yml"));
-        Main.i18nAuthor  = LocalFile.i18nFile.getString("author");
     }
 
     private void loadVariables() {

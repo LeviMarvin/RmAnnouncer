@@ -22,7 +22,7 @@ public class MessageUtil {
     }
 
     public static void sendError(String text) {
-        PLUGIN.getServer().getConsoleSender().sendMessage(PREFIX + "§c" + text);
+        PLUGIN.getServer().getConsoleSender().sendMessage(PREFIX + "§c " + text);
     }
 
     /**
@@ -30,6 +30,6 @@ public class MessageUtil {
      * @param text +String+ The message you want to send.
      */
     public static void sendAlert(String text) {
-        PLUGIN.getServer().getConsoleSender().sendMessage(PREFIX + "§e" + text);
+        PLUGIN.getServer().getConsoleSender().sendMessage(PREFIX + "§e " + text);
     }
 }

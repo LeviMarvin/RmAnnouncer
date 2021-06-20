@@ -19,6 +19,7 @@ import java.io.*;
 import static net.rmplugins.rmannouncer.data.plugin.Main.*;
 import static net.rmplugins.rmannouncer.data.plugin.Extension.*;
 import static net.rmplugins.rmannouncer.util.MessageUtil.*;
+import static net.rmplugins.rmannouncer.data.io.LocalFile.configFile;
 
 /**
  * @author Levi Marvin
@@ -31,6 +32,7 @@ public final class RmAnnouncer extends JavaPlugin {
     }
 
     ReleaseLoader loader;
+    I18nLoader i18nLoader;
 
     @Override
     public void onLoad() {
@@ -65,11 +67,10 @@ public final class RmAnnouncer extends JavaPlugin {
         sendMsg("  Loading data...");
         Data.self().init();
         // Init i18n support.
-        try {
-            i18nFile = new I18nLoader().getProp();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        i18n = configFile.getString("lang");
+        i18nFile = i18nLoader.getProp();
+        i18nAuthor = i18nFile.getProperty("ro.base.author");
+        sendMsg("    Loading language...[" + net.rmplugins.rmannouncer.data.plugin.Main.i18n + "]");
         // Init extensions.
         sendMsg("  Hooking third-party plugin...");
         this.initExtension();
@@ -78,6 +79,7 @@ public final class RmAnnouncer extends JavaPlugin {
         this.initCommand();
         // Run senders.
         this.runSender();
+        sendMsg(i18nFile.getProperty("ro.base.welcome"));
     }
 
     private void initCommand() {
@@ -99,6 +101,11 @@ public final class RmAnnouncer extends JavaPlugin {
         reloadConfig();
         sendMsg("Reloading data...");
         Data.self().reinit();
+        try {
+            i18nLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         runSender();
     }
 

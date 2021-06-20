@@ -16,7 +16,11 @@ public class I18nLoader {
     InputStream is;
 
     public I18nLoader() throws IOException {
-        is = new FileInputStream(PLUGIN.getDataFolder() + i18n + ".lang");
+        load();
+    }
+
+    public void load() throws IOException {
+        is = new FileInputStream(PLUGIN.getDataFolder() + "\\lang\\" + i18n + ".lang");
         langFile.load(is);
     }
 
