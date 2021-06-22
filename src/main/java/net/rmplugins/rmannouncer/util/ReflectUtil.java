@@ -12,7 +12,7 @@ public class ReflectUtil {
      * Get the class belong to the "net.minecraft.server" package.
      *
      * @param name +String+ The name of class what you want. (Include path)
-     * @return Class<?> -
+     * @return +Class<?>+ NMS Class
      */
     public static Class<?> getNmsClass(String name) throws ClassNotFoundException {
         return Class.forName("net.minecraft.server." + VERSION + "." + name);

@@ -1,10 +1,10 @@
 package net.rmplugins.rmannouncer.data.plugin.i18n;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 
 import static net.rmplugins.rmannouncer.data.plugin.Main.PLUGIN;
-import static net.rmplugins.rmannouncer.data.plugin.Main.i18n;
 
 /**
  * @author Levi Marvin
@@ -15,13 +15,13 @@ public class I18nLoader {
     Properties langFile = new Properties();
     InputStream is;
 
-    public I18nLoader() throws IOException {
-        load();
+    public I18nLoader(String i18n) throws IOException {
+        load(i18n);
     }
 
-    public void load() throws IOException {
+    public void load(String i18n) throws IOException {
         is = new FileInputStream(PLUGIN.getDataFolder() + "\\lang\\" + i18n + ".lang");
-        langFile.load(is);
+        langFile.load(new InputStreamReader(is, StandardCharsets.UTF_8));
     }
 
     public Properties getProp() {

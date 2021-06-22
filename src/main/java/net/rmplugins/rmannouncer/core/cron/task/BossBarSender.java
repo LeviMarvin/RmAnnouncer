@@ -7,7 +7,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.Collection;
 
 import static net.rmplugins.rmannouncer.core.util.SenderUtil.sendBossBar;
-import static net.rmplugins.rmannouncer.core.util.StringUtil.*;
+import static net.rmplugins.rmannouncer.core.util.SenderUtil.translateString;
 import static net.rmplugins.rmannouncer.data.plugin.Main.*;
 
 /**
@@ -40,14 +40,19 @@ public class BossBarSender extends BukkitRunnable {
         int textsMax = bossbarTexts.size();
         // Get original text.
         String text = bossbarTexts.get(textIndex);
+        if (text == null) {
+            text = "WARNING BOSSBAR TEXT IS NULL!";
+        }else {
+            text = bossbarTexts.get(textIndex);
+        }
 
         for (Player player : players) {
             // Translate Text's value.
-            String translatedText = translateString(player, text);
+            String finalText = translateString(player, text);
             // Send translated text to player.
-            sendBossBar(bossBar ,barStyle, barColor, player, translatedText);
+            sendBossBar(bossBar ,barStyle, barColor, player, finalText);
         }
-        if (textIndex == textsMax){
+        if (textIndex == textsMax - 1){
             textIndex = 0;
         }
         textIndex++;

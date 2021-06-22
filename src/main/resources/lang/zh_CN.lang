@@ -1,0 +1,27 @@
+ro.base.author=Your name
+# This message will be show at plugin loaded.
+ro.base.welcome=Do you like van♂游戏？
+
+cmd.base.error=命令执行错误！请检查你的输入或联系管理员寻求帮助！
+cmd.base.notfound=你确定吗？这条命令真的存在吗？
+cmd.base.successfully=恭喜！命令执行成功！
+cmd.main.help.rac=唔...我就是来凑个数的 +_+
+cmd.main.help.rac.help=获取此插件的帮助
+cmd.main.help.rac.status=查看插件当前状态和信息
+cmd.main.help.rac.reload=重新加载此插件
+cmd.main.help.rac.update=检查并自动更新此插件（如果你允许的话）
+cmd.main.help.rac.about=查看此插件的关于页面
+cmd.main.reload.reloading=正在重载...
+cmd.main.reload.successfully=重载成功！
+cmd.main.status.chat=聊天栏
+cmd.main.status.title=标题
+cmd.main.status.actionbar=动作栏
+cmd.main.status.bossbar=Boss血条
+cmd.main.about.author=作者
+cmd.main.about.version=版本
+cmd.main.about.language=语言
+cmd.main.about.uuid=唯一标识
+cmd.main.about.isdev=是否为Dev版本
+cmd.main.about.isdev.trueinfo=您正处在不稳定，随时有可能崩溃的Dev版本！请使用稳定版本！
+cmd.main.about.timestamp=构建时间戳
+cmd.main.about.symbol=版本特性

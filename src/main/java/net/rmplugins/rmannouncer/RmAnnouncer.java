@@ -50,15 +50,16 @@ public final class RmAnnouncer extends JavaPlugin {
         welcomeInfo[0] = PREFIX + "§6+-==============-[RmAnnouncer]-==============-+";
         welcomeInfo[1] = PREFIX + "§e            Welcome to RmAnnouncer!            ";
         welcomeInfo[2] = PREFIX + "§e            Get help by: /rac help             ";
-        welcomeInfo[3] = PREFIX + "§e     Get help by: /rac info or /rac about      ";
+        welcomeInfo[3] = PREFIX + "§e     Get help by: /rac help or /rac about      ";
         welcomeInfo[4] = PREFIX + "§a   See details at: https://rac.rmplugins.net   ";
         welcomeInfo[5] = PREFIX + "§6+-==============-[RmAnnouncer]-==============-+";
-        sendMsg("Starting...");
+        sendMsg("Loading...");
         // Init config.
         sendMsg("  Saving resource...");
         this.saveResourceFile("config.yml", false);
         this.saveResourceFile("lang\\template.lang", true);
         this.saveResourceFile("lang\\en_US.lang", false);
+        this.saveResourceFile("lang\\zh_CN.lang", false);
         this.saveResourceFile("message\\chat.yml", false);
         this.saveResourceFile("message\\title.yml", false);
         this.saveResourceFile("message\\actionbar.yml", false);
@@ -68,6 +69,11 @@ public final class RmAnnouncer extends JavaPlugin {
         Data.self().init();
         // Init i18n support.
         i18n = configFile.getString("lang");
+        try {
+            i18nLoader = new I18nLoader(i18n);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         i18nFile = i18nLoader.getProp();
         i18nAuthor = i18nFile.getProperty("ro.base.author");
         sendMsg("    Loading language...[" + net.rmplugins.rmannouncer.data.plugin.Main.i18n + "]");
@@ -93,20 +99,14 @@ public final class RmAnnouncer extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        stopSender();
         sendMsg("§aThanks for using. See you next time.");
     }
 
     public void onReload() {
-        sendMsg("Reloading config...");
-        reloadConfig();
-        sendMsg("Reloading data...");
-        Data.self().reinit();
-        try {
-            i18nLoader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        runSender();
+        stopSender();
+        onLoad();
+        onEnable();
     }
 
     private void runSender() {

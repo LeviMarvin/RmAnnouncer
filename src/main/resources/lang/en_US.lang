@@ -9,6 +9,7 @@ cmd.main.help.rac=If you want, you can try to execute this. XD
 cmd.main.help.rac.help=Show this page.
 cmd.main.help.rac.status=Show all of this plugin's status now.
 cmd.main.help.rac.reload=Reload this plugin.
+cmd.main.help.rac.update=Check update.
 cmd.main.help.rac.about=Show "About" page. >>>Try ME! XD<<<
 cmd.main.reload.reloading=Reloading plugin...
 cmd.main.reload.successfully=Reload successfully!

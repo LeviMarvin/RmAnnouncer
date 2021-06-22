@@ -50,11 +50,12 @@ public class Main implements CommandExecutor {
     private boolean help() {
         String[] text = new String[8];
         text[0] = PREFIX + "§6+-==============-[RmAnnouncer]-==============-+";
-        text[1] = PREFIX + "§e  /rac          -          §a" + _rac_desc;
-        text[2] = PREFIX + "§e  /rac help     -          §a" + _rac_help_desc;
-        text[3] = PREFIX + "§e  /rac status   -          §a" + _rac_status_desc;
-        text[4] = PREFIX + "§e  /rac reload   -          §a" + _rac_reload_desc;
-        text[5] = PREFIX + "§e  /rac about    -          §a" + _rac_about_desc;
+        text[1] = PREFIX + "§e  /rac          -       §a" + _rac_desc;
+        text[2] = PREFIX + "§e  /rac help     -       §a" + _rac_help_desc;
+        text[3] = PREFIX + "§e  /rac status   -       §a" + _rac_status_desc;
+        text[4] = PREFIX + "§e  /rac reload   -       §a" + _rac_reload_desc;
+        text[5] = PREFIX + "§e  /rac update   -       §a" + _rac_update_desc;
+        text[6] = PREFIX + "§e  /rac about    -       §a" + _rac_about_desc;
         text[7] = PREFIX + "§6+-==============-[RmAnnouncer]-==============-+";
         sender.sendMessage(text);
         return true;
@@ -113,6 +114,7 @@ public class Main implements CommandExecutor {
     String _rac_help_desc = i18nFile.getProperty("cmd.main.help.rac.help");
     String _rac_status_desc = i18nFile.getProperty("cmd.main.help.rac.status");
     String _rac_reload_desc = i18nFile.getProperty("cmd.main.help.rac.reload");
+    String _rac_update_desc = i18nFile.getProperty("cmd.main.help.rac.update");
     String _rac_about_desc = i18nFile.getProperty("cmd.main.help.rac.about");
 
     String _reloading = i18nFile.getProperty("cmd.main.reload.reloading");

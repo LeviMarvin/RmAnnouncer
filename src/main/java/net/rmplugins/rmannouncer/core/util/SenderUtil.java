@@ -1,5 +1,6 @@
 package net.rmplugins.rmannouncer.core.util;
 
+import me.clip.placeholderapi.PlaceholderAPI;
 import net.rmplugins.rmannouncer.data.plugin.Main;
 import net.rmplugins.rmannouncer.data.server.nms.NmsClass;
 import org.bukkit.boss.BarColor;
@@ -11,9 +12,12 @@ import org.bukkit.entity.Player;
 import java.lang.reflect.InvocationTargetException;
 import java.util.UUID;
 
+import static net.rmplugins.rmannouncer.data.plugin.Extension.PAPI_support;
 import static net.rmplugins.rmannouncer.data.plugin.Main.PLUGIN;
 import static net.rmplugins.rmannouncer.data.server.Server.majorVersion;
 import static net.rmplugins.rmannouncer.data.server.Server.minorVersion;
+import static net.rmplugins.rmannouncer.util.JsonUtil.isJson;
+import static net.rmplugins.rmannouncer.util.JsonUtil.toTextJson;
 
 /**
  * @author Levi Marvin
@@ -21,6 +25,14 @@ import static net.rmplugins.rmannouncer.data.server.Server.minorVersion;
  * @since 1.0
  */
 public class SenderUtil {
+    public static String translateString(Player player, String text) {
+        if (PAPI_support) {
+            return PlaceholderAPI.setPlaceholders(player, text);
+        }else {
+            return text;
+        }
+    }
+
     /**
      * Send chat message to the player who you want.
      *
@@ -30,18 +42,11 @@ public class SenderUtil {
     public static void sendChat(Player player, String jsonText){
         try {
             // Create chat text object.
-            Object chatText = NmsClass.getNms().iChatBaseComponent
-                    .getDeclaredClasses()[0]
-                    .getDeclaredMethod("a",String.class)
-                    .invoke(null, jsonText);
+            Object chatText = createTextObject(jsonText);
             // Create the text packet.
             Object packet = createPacket(0, majorVersion, minorVersion, chatText);
-            Object entityPlayer = player.getClass().getMethod("getHandle").invoke(player);
-            // Get PlayerConnection.
-            Object playerConnection = entityPlayer.getClass().getField("playerConnection").get(entityPlayer);
             // Send chats.
-            playerConnection.getClass().getMethod("sendPacket", NmsClass.getNms().packet)
-                    .invoke(playerConnection, packet);
+            sendPacket(player, packet);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -60,10 +65,7 @@ public class SenderUtil {
     public static void sendTitle(Player player, String jsonTitleText, String jsonSubTitleText, int in, int stay, int out) {
         try {
             // Create main-title text object.
-            Object mainTitle = NmsClass.getNms().iChatBaseComponent
-                    .getDeclaredClasses()[0]
-                    .getDeclaredMethod("a", String.class)
-                    .invoke(null, jsonTitleText);
+            Object mainTitle = createTextObject(jsonTitleText);
             Object enumTITLE = NmsClass.getNms().enumTitleAction
                     .getEnumConstants()[0];
             Object packetPlayOutMainTitle = NmsClass.getNms().packetPlayOutTitle.getConstructor(
@@ -72,10 +74,7 @@ public class SenderUtil {
                     int.class, int.class, int.class
             ).newInstance(enumTITLE, mainTitle, in, stay, out);
             // Create sub-title text object.
-            Object subTitle = NmsClass.getNms().iChatBaseComponent
-                    .getDeclaredClasses()[0]
-                    .getDeclaredMethod("a", String.class)
-                    .invoke(null, jsonSubTitleText);
+            Object subTitle = createTextObject(jsonSubTitleText);
             Object enumSUBTITLE = NmsClass.getNms().enumTitleAction
                     .getEnumConstants()[1];
             Object packetPlayOutSubTitle = NmsClass.getNms().packetPlayOutTitle.getConstructor(
@@ -83,14 +82,9 @@ public class SenderUtil {
                     NmsClass.getNms().iChatBaseComponent,
                     int.class, int.class, int.class
             ).newInstance(enumSUBTITLE, subTitle, in, stay, out);
-            Object entityPlayer = player.getClass().getMethod("getHandle").invoke(player);
-            // Get PlayerConnection.
-            Object playerConnection = entityPlayer.getClass().getField("playerConnection").get(entityPlayer);
             // Send titles.
-            playerConnection.getClass().getMethod("sendPacket", NmsClass.getNms().packet)
-                    .invoke(playerConnection, packetPlayOutMainTitle);
-            playerConnection.getClass().getMethod("sendPacket", NmsClass.getNms().packet)
-                    .invoke(playerConnection, packetPlayOutSubTitle);
+            sendPacket(player, packetPlayOutMainTitle);
+            sendPacket(player, packetPlayOutSubTitle);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -111,12 +105,8 @@ public class SenderUtil {
                     .invoke(null, jsonText);
             // Create the text packet.
             Object packet = createPacket(2, majorVersion, minorVersion, iChatBaseComponent);
-            Object entityPlayer = player.getClass().getMethod("getHandle").invoke(player);
-            // Get PlayerConnection.
-            Object playerConnection = entityPlayer.getClass().getField("playerConnection").get(entityPlayer);
-            // Send ActionBar.
-            playerConnection.getClass().getMethod("sendPacket", NmsClass.getNms().packet)
-                    .invoke(playerConnection, packet);
+            // Send ActionBar packet.
+            sendPacket(player, packet);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -143,6 +133,42 @@ public class SenderUtil {
             bossBar.addPlayer(player);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    /**
+     * Send packet to player.
+     *
+     * @param player +Player+ The player of accepting the packet
+     * @param packet +Object+ The packet that you want to send
+     */
+    private static void sendPacket(Player player, Object packet) throws NoSuchMethodException, NoSuchFieldException, InvocationTargetException, IllegalAccessException {
+        // Get EntityPlayer.
+        Object entityPlayer = player.getClass().getMethod("getHandle").invoke(player);
+        // Get PlayerConnection.
+        Object playerConnection = entityPlayer.getClass().getField("playerConnection").get(entityPlayer);
+        // Send ActionBar.
+        playerConnection.getClass().getMethod("sendPacket", NmsClass.getNms().packet)
+                .invoke(playerConnection, packet);
+    }
+
+    /**
+     * Create an test object with NMS Class.
+     * "jsonText": !Sometimes it will not JSON type!
+     *
+     * @param jsonText +String+
+     */
+    private static Object createTextObject(String jsonText) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        if (isJson(jsonText)) {
+            return NmsClass.getNms().iChatBaseComponent
+                    .getDeclaredClasses()[0]
+                    .getDeclaredMethod("a",String.class)
+                    .invoke(null, jsonText);
+        }else {
+            return NmsClass.getNms().iChatBaseComponent
+                    .getDeclaredClasses()[0]
+                    .getDeclaredMethod("a",String.class)
+                    .invoke(null, toTextJson(jsonText));
         }
     }
 

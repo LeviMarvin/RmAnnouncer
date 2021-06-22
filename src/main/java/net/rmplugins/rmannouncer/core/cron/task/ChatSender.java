@@ -5,10 +5,12 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Collection;
 
-import static net.rmplugins.rmannouncer.core.util.StringUtil.*;
+import static net.rmplugins.rmannouncer.core.util.SenderUtil.translateString;
 import static net.rmplugins.rmannouncer.data.plugin.Main.PLUGIN;
 import static net.rmplugins.rmannouncer.data.plugin.Main.chatTexts;
 import static net.rmplugins.rmannouncer.core.util.SenderUtil.sendChat;
+import static net.rmplugins.rmannouncer.util.JsonUtil.isJson;
+import static net.rmplugins.rmannouncer.util.JsonUtil.toTextJson;
 
 /**
  * @author Levi Marvin
@@ -39,17 +41,17 @@ public class ChatSender extends BukkitRunnable {
         int textsMax = chatTexts.size();
         // Get original json text.
         String jsonText = chatTexts.get(textIndex);
-        // Get text's value.
-        String text = getKeyValue(jsonText, "text");
+        if (!isJson(jsonText)) {
+            jsonText = toTextJson(jsonText);
+        }
 
         for (Player player : players) {
             // Translate Text's value.
-            String translatedText = translateString(player, text);
-            // Set translated text to jsonObject.
-            String finalJsonText = setKeyValue(jsonText, "text", translatedText);
-            sendChat(player, finalJsonText);
+            String finalText = translateString(player, jsonText);
+            // Send the final text.
+            sendChat(player, finalText);
         }
-        if (textIndex == textsMax){
+        if (textIndex == textsMax - 1){
             textIndex = 0;
         }
         textIndex++;

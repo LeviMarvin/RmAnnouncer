@@ -9,6 +9,7 @@ cmd.main.help.rac=
 cmd.main.help.rac.help=
 cmd.main.help.rac.status=
 cmd.main.help.rac.reload=
+cmd.main.help.rac.update=
 cmd.main.help.rac.about=
 cmd.main.reload.reloading=
 cmd.main.reload.successfully=

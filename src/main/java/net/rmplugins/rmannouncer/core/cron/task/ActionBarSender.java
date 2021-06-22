@@ -6,9 +6,11 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.Collection;
 
 import static net.rmplugins.rmannouncer.core.util.SenderUtil.sendActionBar;
-import static net.rmplugins.rmannouncer.core.util.StringUtil.*;
+import static net.rmplugins.rmannouncer.core.util.SenderUtil.translateString;
 import static net.rmplugins.rmannouncer.data.plugin.Main.PLUGIN;
 import static net.rmplugins.rmannouncer.data.plugin.Main.actionbarTexts;
+import static net.rmplugins.rmannouncer.util.JsonUtil.isJson;
+import static net.rmplugins.rmannouncer.util.JsonUtil.toTextJson;
 
 /**
  * @author Levi Marvin
@@ -39,17 +41,18 @@ public class ActionBarSender extends BukkitRunnable {
         int textsMax = actionbarTexts.size();
         // Get original json text.
         String jsonText = actionbarTexts.get(textIndex);
-        // Get text's value.
-        String text = getKeyValue(jsonText, "text");
+        if (!isJson(jsonText)) {
+            jsonText = toTextJson(jsonText);
+        }
 
         for (Player player : players) {
             // Translate Text's value.
-            String translatedText = translateString(player, text);
-            // Set translated text to jsonObject.
-            String finalJsonText = setKeyValue(jsonText, "text", translatedText);
-            sendActionBar(player, finalJsonText);
+            String finalText = translateString(player, jsonText);
+            // Send the final text.
+            sendActionBar(player, finalText);
         }
-        if (textIndex == textsMax){
+
+        if (textIndex == textsMax - 1){
             textIndex = 0;
         }
         textIndex++;

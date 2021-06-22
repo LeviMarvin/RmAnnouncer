@@ -6,8 +6,10 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.Collection;
 
 import static net.rmplugins.rmannouncer.core.util.SenderUtil.sendTitle;
-import static net.rmplugins.rmannouncer.core.util.StringUtil.*;
+import static net.rmplugins.rmannouncer.core.util.SenderUtil.translateString;
 import static net.rmplugins.rmannouncer.data.plugin.Main.*;
+import static net.rmplugins.rmannouncer.util.JsonUtil.isJson;
+import static net.rmplugins.rmannouncer.util.JsonUtil.toTextJson;
 
 /**
  * @author Levi Marvin
@@ -40,24 +42,25 @@ public class TitleSender extends BukkitRunnable {
         int subTextsMax = subTitleTexts.size();
         // Get original json text.
         String jsonText = titleTexts.get(textIndex);
+        if (!isJson(jsonText)) {
+            jsonText = toTextJson(jsonText);
+        }
         String subJsonText = subTitleTexts.get(subTextIndex);
-        // Get text's value.
-        String text = getKeyValue(jsonText, "text");
-        String subText = getKeyValue(subJsonText, "text");
+        if (!isJson(subJsonText)) {
+            subJsonText = toTextJson(subJsonText);
+        }
 
         for (Player player : players) {
             // Translate Text's value.
-            String translatedText = translateString(player, text);
-            String subTranslatedText = translateString(player, subText);
-            // Set translated text to jsonObject.
-            String finalJsonText = setKeyValue(jsonText, "text", translatedText);
-            String subFinalJsonText = setKeyValue(subJsonText, "text", subTranslatedText);
-            sendTitle(player, finalJsonText, subFinalJsonText, titleFadeIn, titleStay, titleFadeOut);
+            String finalText = translateString(player, jsonText);
+            String subFinalText = translateString(player, subJsonText);
+            // Send the final text.
+            sendTitle(player, finalText, subFinalText, titleFadeIn, titleStay, titleFadeOut);
         }
-        if (textIndex == textsMax){
+        if (textIndex == textsMax - 1){
             textIndex = 0;
         }
-        if (subTextIndex == subTextsMax){
+        if (subTextIndex == subTextsMax - 1){
             subTextIndex = 0;
         }
         textIndex++;

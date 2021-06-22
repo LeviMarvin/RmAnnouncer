@@ -44,20 +44,6 @@ public class Data {
         sendMsg("    Loading file...");
         loadFiles();
         // Load variables
-        sendMsg("    Loading config...");
-        loadVariables();
-    }
-
-    public void reinit() {
-        // Re-initialize NMS Classes.
-        sendMsg("    Reloading NMS...");
-        NmsClass.getNms().reinit();
-        LocalFile.configFile = YamlConfiguration.loadConfiguration(new File(dataPath, "config.yml"));
-        // Reload files.
-        sendMsg("    Reloading file...");
-        loadFiles();
-        // Reload variables
-        sendMsg("    Reloading config...");
         loadVariables();
     }
 
